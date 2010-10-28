@@ -1,0 +1,50 @@
+### MODULE EMISSION ###########################################################
+
+### VARIABLES DU MODULE #######################################################
+set PIE_snd_msg "premier message"
+set PIE_snd_app $APG_msg_unknown
+###############################################################################
+
+
+if { $APG_notk == true } {
+} else {
+### ZONE DU MODULE ############################################################
+labelframe .snd -pady 2 -padx 2 -text "Emission \[$APP, ident = $APG_ident\]" -fg $APG_clrttl
+
+labelframe .snd.msg -text "message"
+entry .snd.msg.v -width 64 -textvariable PIE_snd_msg
+labelframe .snd.app -text "app"
+entry .snd.app.v -width 4 -textvariable PIE_snd_app
+pack .snd.msg.v
+pack .snd.app.v
+
+# Au depart, le bouton envoye est a l'etat 'disable'.
+# Avec le mode connexion a distance, il devient 'enable' quand la connexion
+# avec TNL est etablie. A ce moment-la, libapg-pie.tk lance APG_ckz_bt_start
+# qui rend actif le bouton (cf. pie.tk).
+# En mode sans connexion, cliquer sur Depart pour rendre actif le bouton
+# L'option --auto permet de lancer l'application apres un delai parametrable.
+button .snd.bt -text "Envoyer" \
+		-activebackground SeaGreen4 \
+		-foreground SeaGreen4 \
+		-font $APG_fonte_bt \
+		-width 10 \
+		-state disable \
+		-command {
+				if { $PIE_snd_app == $APG_msg_unknown } {
+						APG_send_what $PIE_snd_msg
+				} else {
+						APG_send_whatwho $PIE_snd_msg $PIE_snd_app
+				}
+		}
+
+# affichage des sous-zones de la zone snd
+pack .snd.bt .snd.msg .snd.app -side left -fill y -pady 2
+###############################################################################
+}
+
+
+### PROCEDURE DU MODULE #######################################################
+###############################################################################
+
+

@@ -1,0 +1,29 @@
+### MODULE SAUVEGARDE
+# permet de sauvegarder dans un fichier des informations sur le deroulement
+# de l'execution. Soit periodiquement si frequence non nulle, soit lors
+# d'evenements particuliers (eg. reception message). Les donnees a
+# sauvegarder doivent etre precisees en surchargeant la procedure
+# APG_svg_formatdata.
+
+
+# surcharge de la procedure APG_svg_formatdata qui specifie ce qu'il faut
+# sauvegarder
+proc APG_svg_formatdata { } {
+	return "PIE_snd_msg = $::PIE_snd_msg, PIE_rcv_msg = $::PIE_rcv_msg"
+}
+
+# surcharge de la procedure APG_svg_formatfirstdata qui specifie la
+# premiere ligne du fichier de sauvegarde (eg. legende...)
+proc APG_svg_formatfirstdata { } {
+	return "Debut sauvegardes"
+}
+
+# surcharge de la procedure APG_svg_formatlastdata qui specifie la
+# derniere ligne du fichier de sauvegarde (eg. post-calculs...)
+proc APG_svg_formatlastdata { } {
+	return "Fin sauvegardes"
+}
+
+# frequence de sauvegarde nulle pour une sauvegarde evenementielle.
+set APG_svg_frq 0
+
