@@ -1,0 +1,38 @@
+PIE - Storage interface
+------------------------
+
+Just source storage_api.tcl in tclsh interpreter. PIE's Storage created four list
+(available, forwarded, subscribed and forgotten) to manage streams of the system.
+A stream is defined by a couple of information : a car_id and a user's nickanme,
+those field shouldn't be changed after stream creation. 
+
+Storage api offers a high level interface to manage stream, it allow to create
+new stream, to search existing streams in the differents lists of the system, 
+to remove stream from a list or from the whole system, etc ....
+
+See storage_api.tcl's header file for more information about storage system,
+and storage_{user,stream,list}.tcl headers files for more specific informations
+about user, stream and list interface.
+
+Files : 
+-------
+
+README				This file
+storage_api.tcl		High level interface of the storage system, main stream management interface
+storage_list.tcl	Lists management interface and objects definition
+storage_stream.tcl  Streams management interface and objects definition
+storage_user.tcl	Users management interface and objects definition 
+
+Arch/Dependancies :
+-------------------
+
+Storage API depends of list API, list API depends of Stream API
+and Stream API depends of Users API (so just source Storage API). 
+
+Requirement :
+-------------
+
+ - Itcl package required
+ - use tclsh8.5 interpreter (need by Itcl)
+
+

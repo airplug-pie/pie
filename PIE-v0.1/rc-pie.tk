@@ -1,3 +1,0 @@
-APG_vrb_dispnotif "chargement de rc-pie.tk"
-set APG_svg_fd [open $APG_svg_filename w]
-set APG_svg_frq 0
