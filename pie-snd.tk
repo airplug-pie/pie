@@ -1,0 +1,32 @@
+#    pie
+#    a twitter-like app for airplug
+#    authors: Christophe Boudet, Julien Castaigne, Jonathan Roudière,
+#             Christophe Roquette, Jérémy Subtil
+#    license type: free of charge license for academic and research purpose
+#    see license.txt
+
+### MODULE EMISSION ###########################################################
+
+
+### VARIABLES DU MODULE #######################################################
+
+###############################################################################
+
+
+### ZONE GRAPHIQUE DU MODULE ##################################################
+
+# Definition de la zone horizontale
+# NB : cette zone est affichee (pack) avec l'instruction
+#      APG_int_addzone snd "Emissions" 1 du fichier pie.tk,
+#      qui l'ajoute egalement dans le menu.
+
+labelframe .snd -pady 2 -padx 2 \
+    -text "Emission \[$APP, ident = $APG_ident\]" -fg $APG_clrttl
+
+###############################################################################
+
+
+### PROCEDURE DU MODULE #######################################################
+
+###############################################################################
+

@@ -1,0 +1,14 @@
+#    pie
+#    a twitter-like app for airplug
+#    authors: Christophe Boudet, Julien Castaigne, Jonathan Roudière,
+#             Christophe Roquette, Jérémy Subtil
+#    license type: free of charge license for academic and research purpose
+#    see license.txt
+
+### MODULE SAUVEGARDE #########################################################
+
+# Permet de sauvegarder dans un fichier des informations sur le deroulement
+# de l'execution. Soit periodiquement si frequence non nulle, soit lors
+# d'evenements particuliers (eg. reception message).
+# Cf. libapg-svg.tk
+

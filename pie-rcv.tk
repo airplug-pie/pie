@@ -1,0 +1,25 @@
+#    pie
+#    a twitter-like app for airplug
+#    authors: Christophe Boudet, Julien Castaigne, Jonathan Roudière,
+#             Christophe Roquette, Jérémy Subtil
+#    license type: free of charge license for academic and research purpose
+#    see license.txt
+
+### MODULE RECEPTION ##########################################################
+
+
+### VARIABLES DU MODULE #######################################################
+
+###############################################################################
+
+### ZONE DU MODULE ############################################################
+
+labelframe .rcv -pady 2 -padx 2 \
+    -text "Réception \[$APP, ident = $APG_ident\]"  -fg $APG_clrttl
+
+###############################################################################
+
+
+### PROCEDURE DU MODULE #######################################################
+
+###############################################################################

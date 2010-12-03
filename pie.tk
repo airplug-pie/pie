@@ -35,5 +35,19 @@ if { [ catch {
     }
 ###############################################################################
 
+### LECTURE FICHIERS APPLICATIONS + AFFICHAGE ZONES ###########################
+## Lecture des fichiers composant l'application
+source $PATH/pie-snd.tk
+source $PATH/pie-rcv.tk
+source $PATH/pie-svg.tk
+
+## Ajout des zones crees, avec option affichage
+APG_int_addzone snd "Emissions" 1
+APG_int_addzone rcv "Receptions" 1
+
+## Affichage des zones
+APG_int_displayzones
+###############################################################################
+
 puts "HELLO PIE"
 
