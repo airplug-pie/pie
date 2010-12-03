@@ -1,0 +1,23 @@
+#    pie
+#    a twitter-like app for airplug
+#    authors: Christophe Boudet, Julien Castaigne, Jonathan Roudière,
+#             Christophe Roquette, Jérémy Subtil
+#    license type: free of charge license for academic and research purpose
+#    see license.txt
+
+### MODULE MESSAGE ############################################################
+
+
+### VARIABLES DU MODULE #######################################################
+
+set PIE_msg_type_heartbeat 0
+set PIE_msg_type_pie 1
+
+set PIE_msg_key_from "FROM"
+set PIE_msg_key_nick "NICK"
+set PIE_msg_key_ttl "TTL"
+set PIE_msg_key_tts "TTS"
+set PIE_msg_key_type "TYPE"
+
+###############################################################################
+

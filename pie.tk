@@ -37,6 +37,7 @@ if { [ catch {
 
 ### LECTURE FICHIERS APPLICATIONS + AFFICHAGE ZONES ###########################
 ## Lecture des fichiers composant l'application
+source $PATH/pie-msg.tk
 source $PATH/pie-snd.tk
 source $PATH/pie-rcv.tk
 source $PATH/pie-svg.tk

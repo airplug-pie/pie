@@ -52,10 +52,33 @@ pack .snd.bt .snd.msg -side left -fill y -pady 2
 ###############################################################################
 
 
-### PROCEDURE DU MODULE #######################################################
+### PROCEDURES DU MODULE ######################################################
+
+proc PIE_gen_header { ttl tts type } {
+  set header ""
+  
+  #TODO PIE_gen_header: definir FROM
+  #TODO PIE_gen_header: definir NICK
+  APG_msg_addmsg header $::PIE_msg_key_from "-"
+  APG_msg_addmsg header $::PIE_msg_key_nick "-"
+  APG_msg_addmsg header $::PIE_msg_key_ttl $ttl
+  APG_msg_addmsg header $::PIE_msg_key_tts $tts
+  APG_msg_addmsg header $::PIE_msg_key_type $type
+
+  return $header
+}
+
+proc PIE_send_msg { ttl tts type payload } {
+  #TODO PIE_send_msg: bien gerer le payload
+  set header [ PIE_gen_header $ttl $tts $type ]
+  set msg $header$payload
+  APG_send_what $msg
+}
 
 proc PIE_send_pie { msg } {
-    APG_send_what $msg
+  #TODO PIE_send_pie: redefinir TTL et TTS
+  #TODO PIE_send_pie: gerer le payload
+  PIE_send_msg 1 1 $::PIE_msg_type_pie $msg
 }
 
 ###############################################################################
