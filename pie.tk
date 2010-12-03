@@ -49,5 +49,22 @@ APG_int_addzone rcv "Receptions" 1
 APG_int_displayzones
 ###############################################################################
 
-puts "HELLO PIE"
+### SURCHARGE DE FONCTIONS ####################################################
+## Surcharge de la fonction associee au bouton depart
+proc APG_int_btstart { } {
+    # Le bouton Depart devient "disable"
+    APG_int_disablebtstart
+
+    # Le bouton Envoyer de la zone d'emission devient "actif"
+    .snd.bt configure -state active
+}
+
+## Surcharge de la fonction associee au bouton end
+proc APG_int_btend { } {
+	# arret eventuelle sauvegarde en cours
+	APG_svg_stop
+
+	exit
+}
+###############################################################################
 
