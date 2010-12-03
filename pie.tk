@@ -1,0 +1,39 @@
+#!/bin/sh
+# the next line restarts using wish \
+exec wish "$0" "$@"
+
+#    pie
+#    a twitter-like app for airplug
+#    authors: Christophe Boudet, Julien Castaigne, Jonathan Roudière,
+#             Christophe Roquette, Jérémy Subtil
+#    license type: free of charge license for academic and research purpose
+#    see license.txt
+
+### INITIALISATION STANDARD DE L'APPLICATION COMPATIBLE AIRPLUG ###############
+# nom standard de l'application (nom du rep. dans la distribution)
+# trois lettres majuscules pour APP, trois lettres minuscules pour app
+set APP "PIE"
+set app "pie"
+
+# Recuperation de la valeur de la variable d'environnement APG_PATH,
+# qui indique le repertoire de la distribution AIRPLUG
+set APG_PATH [lindex [split [exec env | grep APG_PATH] "="] 1]
+if { [ catch {
+		set libapgfile [open $APG_PATH/LIBAPGTK/LIBAPGTK/libapg.tk r]
+		close $libapgfile
+	    } ]
+    } {
+	puts stderr "\n\033\[1;31m- $::app\(local\): libapg.tk non trouvee\n \
+                     Verifier l'installation. APG_PATH=$APG_PATH\n \
+                     Se placer dans le repertoire bin, faire source config.sh\n \
+                     Se reporter a la documentation en ligne. Contacter l'equipe Airplug.\
+                     \033\[0;00m\n"
+	exit
+    } else {
+	source $APG_PATH/LIBAPGTK/LIBAPGTK/libapg.tk
+	APG_vrb_dispnotif "utilisation de la distribution airplug $APG_PATH"
+    }
+###############################################################################
+
+puts "HELLO PIE"
+
