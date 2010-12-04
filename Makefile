@@ -12,7 +12,7 @@ OUTPUT = "pie"
 DIR = PIE
 
 # Repertoire d'installation de la distribution
-export DIR_INSTALL = ../..
+export DIR_INSTALL = ..
 
 # Pour eviter d'eventuels problemes provenant de l'heritage de
 # variables SHELL depuis l'environnement :
