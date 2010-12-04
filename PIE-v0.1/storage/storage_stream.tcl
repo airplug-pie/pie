@@ -102,7 +102,7 @@ package require Itcl
 namespace import itcl::*
 
 # Provide display functions
-source core/low_proc.tcl
+source $::PATH/core/low_proc.tcl
 
 # storage_user.tcl must be loaded after Stream managment interface initialization
 # --------------------- End : Requirement --------------------------------
@@ -230,7 +230,7 @@ if {[string compare [find classes stream] "" ]} {
 }
 
 # Must be load after Stream clean up
-source storage/storage_user.tcl
+source $::PATH/storage/storage_user.tcl
 
 # Initialize Stream management interface
 stream_init

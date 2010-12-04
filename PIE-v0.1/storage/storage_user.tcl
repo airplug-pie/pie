@@ -56,7 +56,7 @@ package require Itcl
 namespace import itcl::*
 
 # Provide display functions
-source core/low_proc.tcl
+source $::PATH/core/low_proc.tcl
 # --------------------- End : Requirement --------------------------------
 
 

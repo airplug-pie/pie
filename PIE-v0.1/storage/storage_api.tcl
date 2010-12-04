@@ -118,7 +118,7 @@ package require Itcl
 namespace import itcl::*
 
 # Provide display functions
-source core/low_proc.tcl
+source $PATH/core/low_proc.tcl
 
 # --------------------- End : Requirement --------------------------------
 
@@ -853,7 +853,7 @@ proc storage.newmesg { stream } {
 # load it several time but we want to able to source several time this file.
 if { ![ regexp {list.new} [info commands] ] } {
 	pdebug "Storage's management interface initialization"
-	source storage/storage_list.tcl
+	source $PATH/storage/storage_list.tcl
 	storage_init
 }
 # -------------------------------------------------------------------------
