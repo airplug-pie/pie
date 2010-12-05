@@ -36,13 +36,13 @@ button .snd.bt -text "Envoyer" \
     -width 10 \
     -state disable \
     -command {
-	PIE_send_pie $PIE_snd_msg
+	PIE_post $PIE_snd_msg
     }
 
 # Touche entree sur la sous-zone de saisie => emission
 bind .snd.msg.v <Return> {
   .snd.bt configure -relief sunken
-  PIE_send_pie $PIE_snd_msg
+  PIE_post $PIE_snd_msg
   after 10 {  .snd.bt configure -relief raised }
 }
 
@@ -54,10 +54,20 @@ pack .snd.bt .snd.msg -side left -fill y -pady 2
 
 ### PROCEDURES DU MODULE ######################################################
 
-proc PIE_gen_header { ttl tts type } {
-  set header ""
+proc PIE_gen_post_id { date content } {
+  package require md5
+  return ::md5::md5 -hex $date$content
+}
+
+proc PIE_post { content } {
+  set date [ clock seconds ]
+  set id [ PIE_gen_post_id $date $content ]
   
-  APG_msg_addmsg header $::PIE_msg_key_from $::APG_ident
+  PIE_send_pie $id $date $content
+}
+
+proc PIE_gen_header { ttl tts type } {
+  set header [ APG_msg_createmsg $::PIE_msg_key_from $::APG_ident ]
   APG_msg_addmsg header $::PIE_msg_key_nick $::PIE_nick
   APG_msg_addmsg header $::PIE_msg_key_ttl $ttl
   APG_msg_addmsg header $::PIE_msg_key_tts $tts
@@ -66,17 +76,18 @@ proc PIE_gen_header { ttl tts type } {
   return $header
 }
 
-proc PIE_send_msg { ttl tts type payload } {
-  #TODO PIE_send_msg: bien gerer le payload
-  set header [ PIE_gen_header $ttl $tts $type ]
-  set msg $header$payload
-  APG_send_what $msg
-}
-
-proc PIE_send_pie { msg } {
+proc PIE_send_pie { postid postdate postcontent } {
   #TODO PIE_send_pie: redefinir TTL et TTS
-  #TODO PIE_send_pie: gerer le payload
-  PIE_send_msg 1 1 $::PIE_msg_type_pie $msg
+  set ttl 1
+  set tts 1
+  
+  set msg [ PIE_gen_header $ttl $tts $::PIE_msg_type_pie ]
+
+  APG_msg_addmsg msg $::PIE_msg_key_postid $postid
+  APG_msg_addmsg msg $::PIE_msg_key_postdate $postdate
+  APG_msg_addmsg msg $::PIE_msg_key_postcontent $postcontent
+  
+  APG_send_what $msg
 }
 
 ###############################################################################

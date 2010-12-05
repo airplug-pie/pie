@@ -19,5 +19,9 @@ set PIE_msg_key_ttl "TTL"
 set PIE_msg_key_tts "TTS"
 set PIE_msg_key_type "TYPE"
 
+set PIE_msg_key_postid "ID"
+set PIE_msg_key_postdate "DATE"
+set PIE_msg_key_postcontent "MSG"
+
 ###############################################################################
 
