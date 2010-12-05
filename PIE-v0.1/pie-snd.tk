@@ -57,10 +57,8 @@ pack .snd.bt .snd.msg -side left -fill y -pady 2
 proc PIE_gen_header { ttl tts type } {
   set header ""
   
-  #TODO PIE_gen_header: definir FROM
-  #TODO PIE_gen_header: definir NICK
-  APG_msg_addmsg header $::PIE_msg_key_from "-"
-  APG_msg_addmsg header $::PIE_msg_key_nick "-"
+  APG_msg_addmsg header $::PIE_msg_key_from $::APG_ident
+  APG_msg_addmsg header $::PIE_msg_key_nick $::PIE_nick
   APG_msg_addmsg header $::PIE_msg_key_ttl $ttl
   APG_msg_addmsg header $::PIE_msg_key_tts $tts
   APG_msg_addmsg header $::PIE_msg_key_type $type

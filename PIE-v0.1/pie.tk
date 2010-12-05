@@ -9,6 +9,10 @@ exec wish "$0" "$@"
 #    license type: free of charge license for academic and research purpose
 #    see license.txt
 
+### VARIABLES ET VALEURS PAR DEFAUT DE L'APP ##################################
+set PIE_nick "nonick"
+###############################################################################
+
 ### INITIALISATION STANDARD DE L'APPLICATION COMPATIBLE AIRPLUG ###############
 # nom standard de l'application (nom du rep. dans la distribution)
 # trois lettres majuscules pour APP, trois lettres minuscules pour app
@@ -33,6 +37,19 @@ if { [ catch {
 	source $APG_PATH/LIBAPGTK/LIBAPGTK/libapg.tk
 	APG_vrb_dispnotif "utilisation de la distribution airplug $APG_PATH"
     }
+###############################################################################
+
+### GESTION DES ARGUMENTS DE LA CLI ###########################################
+foreach option $liste_args {
+  set option_name [lindex [split $option "="] 0]
+  set option_value [lindex [split $option "="] 1]
+
+  switch -- $option_name {
+    --nick {
+      set PIE_nick $option_value
+    }
+  }
+}
 ###############################################################################
 
 ### LECTURE FICHIERS APPLICATIONS + AFFICHAGE ZONES ###########################
