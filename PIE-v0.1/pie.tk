@@ -21,22 +21,28 @@ set app "pie"
 
 # Recuperation de la valeur de la variable d'environnement APG_PATH,
 # qui indique le repertoire de la distribution AIRPLUG
-set APG_PATH [lindex [split [exec env | grep APG_PATH] "="] 1]
-if { [ catch {
-		set libapgfile [open $APG_PATH/LIBAPGTK/LIBAPGTK/libapg.tk r]
-		close $libapgfile
-	    } ]
-    } {
-	puts stderr "\n\033\[1;31m- $::app\(local\): libapg.tk non trouvee\n \
-                     Verifier l'installation. APG_PATH=$APG_PATH\n \
-                     Se placer dans le repertoire bin, faire source config.sh\n \
-                     Se reporter a la documentation en ligne. Contacter l'equipe Airplug.\
-                     \033\[0;00m\n"
-	exit
-    } else {
-	source $APG_PATH/LIBAPGTK/LIBAPGTK/libapg.tk
-	APG_vrb_dispnotif "utilisation de la distribution airplug $APG_PATH"
-    }
+if { [ info exists env(APG_PATH) ] == 1 } {
+	set APG_PATH [lindex [split [exec env | grep APG_PATH] "="] 1]
+	if { [ catch {
+			set libapgfile [open $APG_PATH/LIBAPGTK/LIBAPGTK/libapg.tk r]
+			close $libapgfile
+		    } ]
+	    } {
+		puts stderr "\n\033\[1;31m- $::app\(local\): libapg.tk non trouvee\n \
+	                     Verifier l'installation. APG_PATH=$APG_PATH\n \
+	                     Se placer dans le repertoire bin, faire source config.sh\n \
+	                     Se reporter a la documentation en ligne. Contacter l'equipe Airplug.\
+	                     \033\[0;00m\n"
+		exit
+	} else {
+		source $APG_PATH/LIBAPGTK/LIBAPGTK/libapg.tk
+		APG_vrb_dispnotif "utilisation de la distribution airplug $APG_PATH"
+	}
+} else {
+	;# in order to try PIE without Airplug
+	set PATH	[exec pwd]
+	set liste_args	$argv
+}
 ###############################################################################
 
 ### GESTION DES ARGUMENTS DE LA CLI ###########################################
@@ -44,11 +50,18 @@ foreach option $liste_args {
   set option_name [lindex [split $option "="] 0]
   set option_value [lindex [split $option "="] 1]
 
-  switch -- $option_name {
-    --nick {
-      set PIE_nick $option_value
-    }
-  }
+	switch -- $option_name {
+		--configdir {
+			set PIE_configdir $option_value
+		}
+		--gobalconf {
+			set PIE_globalfile $option_value
+		}
+		--testgui {
+			exec ./gui/gui-launcher.tcl
+			exit
+		}
+	}
 }
 ###############################################################################
 
@@ -58,32 +71,10 @@ source $PATH/pie-msg.tk
 source $PATH/pie-snd.tk
 source $PATH/pie-rcv.tk
 source $PATH/pie-svg.tk
-source $PATH/storage/storage_api.tcl
 
-## Ajout des zones crees, avec option affichage
-APG_int_addzone snd "Emissions" 1
-APG_int_addzone rcv "Receptions" 1
+# Start PIE GUI (storage is load too)
+source $PATH/gui/gui-init.tcl
 
-## Affichage des zones
-APG_int_displayzones
-###############################################################################
 
-### SURCHARGE DE FONCTIONS ####################################################
-## Surcharge de la fonction associee au bouton depart
-proc APG_int_btstart { } {
-    # Le bouton Depart devient "disable"
-    APG_int_disablebtstart
-
-    # Le bouton Envoyer de la zone d'emission devient "actif"
-    .snd.bt configure -state active
-}
-
-## Surcharge de la fonction associee au bouton end
-proc APG_int_btend { } {
-	# arret eventuelle sauvegarde en cours
-	APG_svg_stop
-
-	exit
-}
 ###############################################################################
 

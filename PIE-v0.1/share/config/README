@@ -1,0 +1,19 @@
+			--- PIE CONFIGURATION ---
+
+You can use directory 'pie' in this directory, rename
+and put it under $HOME/.pie/, at startup if PIE can't
+find this directory it will be created and ask you to
+define a valid user profile.
+
+
+There  is  two files, first is global.conf  which are 
+defined  global settings  of  PIE  application  (what 
+tabs open at startup, default mode, default user pro-
+file). All fields are  optionals, line with a comment
+start with '#' and unknown fields will be ignored.
+
+Second file is a user profile configuration, the file
+format is NICKNAME.conf, it is  possible to have many
+user profiles, PIE  ask you to choose one at startup.
+If only one is available then PIE will use it.
+

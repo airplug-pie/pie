@@ -1,0 +1,121 @@
+
+
+						--- PIE GUI ---
+
+
+PIe windows and tabs
+--------------------
+
+Pie GUI is a set of several tabs included in a main window.
+
+  - In the main window, you can see available stream on the right panel,
+  subscribed stream on the left panel and your text editor to send mesg
+  on the bottom
+  
+  	- To subscribe to a stream use drag-and-drop feature, drag stream
+  	in "Available streams" and drop it in "Subscribed streams"
+  
+  - Tab "Current profile" is intended to display and change your profile
+  - Tab "Global settings" is intended to display and change pie settings
+  
+  - Window "Subscribed mesg" display streams to which your are subscribed
+  - Tab "Your messages" display messages sent locally (by you)
+  
+  - Tab "Network Traces" display all network packets 
+  - Tab "Input traces" display incoming network packets
+  - Tab "Output traces" display outgoing network packets
+  - Tab "Forwarded streams" display streams that you are forwarding, and
+  allow to unforward them
+
+
+Available Shortcuts
+-------------------
+
+	- Ctrl-q	Close PIE application
+
+	- Ctrl-a	Switch to Active mode
+	- Ctrl-p	Switch to Passive mode
+	- Ctrl-s	Switch to Scan mode (same as passive)
+
+	- Ctrl-u	Open/close current user profile tab
+	- Ctrl-g	Open/close global settings tab
+
+	- Ctrl-m	Open/close widow with subscribed streams and their messages
+	- Ctrl-l	Open/close tab with local messages
+
+	- Ctrl-n	Open/close tab with network traces (packets)
+	- Ctrl-d	Open/close debug messages, traces
+	- Ctrl-i	Open/close tab which log incoming packets
+	- Ctrl-o	Open/close tab which log outgoing packets
+	- Ctrl-f	Open/close tab with forwarded streams
+
+	- Ctrl-h	Open this help
+	- Ctrl-b	Open About window
+
+	In the text editor :
+
+	- Ctrl-c	Copy selected text
+	- Ctrl-v	Paste
+	- Ctrl-z	Undo
+	- Ctrl-y	Redo
+
+Startup
+-------
+
+At startup PIE GUI look for configuration under $HOME.
+
+Configuration
+--------------
+
+You can use directory 'pie' under share/config, rename
+and put it under $HOME/.pie/, at startup if PIE can't
+find this directory it will be created and ask you to
+define a valid user profile.
+
+
+There  is  two files, first is global.conf  which are
+defined  global settings  of  PIE  application  (what
+tabs open at startup, default mode, default user pro-
+file). All fields are  optionals, line with a comment
+start with '#' and unknown fields will be ignored.
+
+Second file is a user profile configuration, the file
+format is NICKNAME.conf, it is  possible to have many
+user profiles, PIE  ask you to choose one at startup.
+If only one is available then PIE will use it.
+
+
+Requirement 
+------------
+
+It only need to include gui/gui-init.tcl in top level
+tcl/tk file to load GUI, GUI load its own required files
+as storage, display fonctions, etc .....
+
+Files
+-----
+
+gui-init.tcl				Top level script to load GUI (source only this file)
+
+gui-configfunct.tcl			Function used at startup to look for config, to initialized global
+							variables and create local user stream
+gui-mainfuncts.tcl			GUI function API
+gui-main.tcl				Main window definition
+
+gui-tab-forwarded.tcl		Tab forwarded streams and its functions
+gui-tab-globalconfig.tcl	Tab global and its function
+gui-tab-inputs.tcl			Tab network inputs and its functions
+gui-tab-nettraces.tcl		Tab your messages and its functions
+gui-tab-outputs.tcl			Tab network outputs and its functions
+gui-tab-pietraces.tcl		Tab Pie traces (debug) and its functions
+gui-tab-popups.tcl			Popups window (error, About, Help, Quit)
+gui-tab-state.tcl			Function to switch between states (menu)
+gui-tab-subscribed.tcl		window subscribed streams and its function
+gui-tab-userprofile.tcl		Tab current profile and its function
+gui-tab-yourmesg.tcl		Tab your messages and its functions
+
+gui-launcher.tcl			A launcher to try GUI in real mode	
+README						This readme
+README.API					Readme which explain how to interact with gui from core and how to gui call core functions
+ctags_gui.tags				A list of all gui*tcl functions make with ctags
+

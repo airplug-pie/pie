@@ -1,0 +1,78 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+clean_allstream	storage_stream.tcl	/^proc clean_allstream {} {$/;"	p
+clean_allusers	storage_user.tcl	/^proc clean_allusers {} {$/;"	p
+list_add	storage_list.tcl	/^proc list_add { listname val } {$/;"	p
+list_created	storage_list.tcl	/^proc list_created { listname } {$/;"	p
+list_delete	storage_list.tcl	/^proc list_delete { listname } {$/;"	p
+list_delete_withcontent	storage_list.tcl	/^proc list_delete_withcontent { listname } {$/;"	p
+list_destroy	storage_list.tcl	/^proc list_destroy {} {$/;"	p
+list_destroy_whitcontent	storage_list.tcl	/^proc list_destroy_whitcontent {} {$/;"	p
+list_exist	storage_list.tcl	/^proc list_exist { listname } {$/;"	p
+list_init	storage_list.tcl	/^proc list_init {} {$/;"	p
+list_isempty	storage_list.tcl	/^proc list_isempty { listname } {$/;"	p
+list_nb	storage_list.tcl	/^proc list_nb { listname } {$/;"	p
+list_new	storage_list.tcl	/^proc list_new { listname } {$/;"	p
+list_remove	storage_list.tcl	/^proc list_remove { listname val } {$/;"	p
+list_search	storage_list.tcl	/^proc list_search { listname val } {$/;"	p
+list_search_stream	storage_list.tcl	/^proc list_search_stream { listname val } {$/;"	p
+list_search_stream_bymember	storage_list.tcl	/^proc list_search_stream_bymember { listname member val } {$/;"	p
+list_search_user_bymember	storage_list.tcl	/^proc list_search_user_bymember { listname member val } {$/;"	p
+list_show	storage_list.tcl	/^proc list_show { listname } {$/;"	p
+lremove	storage_list.tcl	/^proc lremove { listname val } {$/;"	p
+search_by_member	storage_stream.tcl	/^proc search_by_member { member value } {$/;"	p
+storage.addstream	storage_api.tcl	/^proc storage.addstream { list stream } {$/;"	p
+storage.available	storage_api.tcl	/^proc storage.available { stream } {$/;"	p
+storage.forgotten	storage_api.tcl	/^proc storage.forgotten { stream } {$/;"	p
+storage.forwarded	storage_api.tcl	/^proc storage.forwarded { stream } {$/;"	p
+storage.isavailable	storage_api.tcl	/^proc storage.isavailable { car_id nickname } {$/;"	p
+storage.isforgotten	storage_api.tcl	/^proc storage.isforgotten { car_id nickname } {	$/;"	p
+storage.isforwarded	storage_api.tcl	/^proc storage.isforwarded { car_id nickname } {$/;"	p
+storage.isinit	storage_api.tcl	/^proc storage.isinit {} {$/;"	p
+storage.issubscribed	storage_api.tcl	/^proc storage.issubscribed { car_id nickname } {	$/;"	p
+storage.istream	storage_api.tcl	/^proc storage.istream { stream } {$/;"	p
+storage.nb_mesg	storage_api.tcl	/^proc storage.nb_mesg { stream } {$/;"	p
+storage.new_stream	storage_api.tcl	/^proc storage.new_stream { car_id nickname } {$/;"	p
+storage.newmesg	storage_api.tcl	/^proc storage.newmesg { stream } {$/;"	p
+storage.reset	storage_api.tcl	/^proc storage.reset {} {$/;"	p
+storage.search_stream.bymember	storage_api.tcl	/^proc storage.search_stream.bymember { member val } {$/;"	p
+storage.search_stream.user.bymember	storage_api.tcl	/^proc storage.search_stream.user.bymember { member val } {$/;"	p
+storage.stream.isavailable	storage_api.tcl	/^proc storage.stream.isavailable { stream } {$/;"	p
+storage.stream.isforgotten	storage_api.tcl	/^proc storage.stream.isforgotten { stream } {$/;"	p
+storage.stream.isforwarded	storage_api.tcl	/^proc storage.stream.isforwarded { stream } {$/;"	p
+storage.stream.issubscribed	storage_api.tcl	/^proc storage.stream.issubscribed { stream } {$/;"	p
+storage.stream_delete	storage_api.tcl	/^proc storage.stream_delete { stream } {$/;"	p
+storage.stream_delete_list	storage_api.tcl	/^proc storage.stream_delete_list { list stream } {$/;"	p
+storage.stream_destroy	storage_api.tcl	/^proc storage.stream_destroy { stream } {$/;"	p
+storage.stream_list	storage_api.tcl	/^proc storage.stream_list { stream } {$/;"	p
+storage.stream_search	storage_api.tcl	/^proc storage.stream_search { car_id nickname } {$/;"	p
+storage.subscribed	storage_api.tcl	/^proc storage.subscribed { stream } {$/;"	p
+storage.time_available	storage_api.tcl	/^proc storage.time_available { stream } {$/;"	p
+storage.time_available.get	storage_api.tcl	/^proc storage.time_available.get { stream } {$/;"	p
+storage.time_available.set	storage_api.tcl	/^proc storage.time_available.set { stream } {$/;"	p
+storage.time_lasthello	storage_api.tcl	/^proc storage.time_lasthello { stream } {$/;"	p
+storage.time_lasthello.get	storage_api.tcl	/^proc storage.time_lasthello.get { stream } {$/;"	p
+storage.time_lasthello.set	storage_api.tcl	/^proc storage.time_lasthello.set { stream } {$/;"	p
+storage.time_lastmsg	storage_api.tcl	/^proc storage.time_lastmsg { stream } {$/;"	p
+storage.time_lastmsg.get	storage_api.tcl	/^proc storage.time_lastmsg.get { stream } {$/;"	p
+storage.time_lastmsg.set	storage_api.tcl	/^proc storage.time_lastmsg.set { stream } {$/;"	p
+storage.unavailable	storage_api.tcl	/^proc storage.unavailable { stream } {$/;"	p
+storage.unforgotten	storage_api.tcl	/^proc storage.unforgotten { stream } {$/;"	p
+storage.unforwarded	storage_api.tcl	/^proc storage.unforwarded { stream } {$/;"	p
+storage.unsubscribed	storage_api.tcl	/^proc storage.unsubscribed { stream } {$/;"	p
+storage_init	storage_api.tcl	/^proc storage_init {} {	$/;"	p
+stream	storage_stream.tcl	/^class stream {$/;"	c
+stream_clean_all	storage_stream.tcl	/^proc stream_clean_all {} {$/;"	p
+stream_delete	storage_stream.tcl	/^proc stream_delete { obj } {$/;"	p
+stream_exist	storage_stream.tcl	/^proc stream_exist { obj } {$/;"	p
+stream_init	storage_stream.tcl	/^proc stream_init {} {$/;"	p
+user	storage_user.tcl	/^class user {$/;"	c
+user_clean_all	storage_user.tcl	/^proc user_clean_all {} {$/;"	p
+user_delete	storage_user.tcl	/^proc user_delete { obj } {$/;"	p
+user_exist	storage_user.tcl	/^proc user_exist { obj } {$/;"	p
+user_init	storage_user.tcl	/^proc user_init {} {$/;"	p
+user_search_by_member	storage_stream.tcl	/^proc user_search_by_member { member value } {$/;"	p

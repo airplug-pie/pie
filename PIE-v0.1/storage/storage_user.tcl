@@ -6,15 +6,6 @@
 # Copyright : 
 #		Copyright (C) 2010 Jonathan Roudiere <joe.roudiere@gmail.com>
 #
-# Licence : 
-# 
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation;  either version 2, or (at your option)
-# any later version.
-#
-# See LICENSE file.
-
 
 # =============================== User API ===============================
 #
@@ -56,7 +47,7 @@ package require Itcl
 namespace import itcl::*
 
 # Provide display functions
-source $::PATH/core/low_proc.tcl
+source core/low_proc.tcl
 # --------------------- End : Requirement --------------------------------
 
 

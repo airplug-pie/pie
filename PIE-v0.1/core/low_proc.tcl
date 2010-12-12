@@ -25,13 +25,23 @@ proc getargs {} {
 }
 
 proc pstr { str } {
-    puts "$::argv0 : $str"
+	global gui
+    if { [info exists gui ] == 0 } {
+		puts "$::argv0 : $str"
+	} else {
+		gui_apps_traces "$::argv0 : $str"
+	}
 }
 
 proc pdebug { str } {
-    if {$::debug_mode == 1} {
-        puts "$::argv0 : DEBUG : $str"
-    }
+	global gui
+	if { [info exists gui ] == 0 } {
+		if {$::debug_mode == 1} {
+			puts "$::argv0 : DEBUG : $str"
+		}
+	} else {
+		gui_apps_traces "$::argv0 : DEBUG : $str"
+	}
 }
 
 

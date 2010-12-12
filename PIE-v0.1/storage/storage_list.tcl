@@ -5,15 +5,6 @@
 #
 # Copyright : 
 #		Copyright (C) 2010 Jonathan Roudiere <joe.roudiere@gmail.com>
-#
-# Licence : 
-# 
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation;  either version 2, or (at your option)
-# any later version.
-#
-# See LICENSE file.
 
 # =========================== List API ===========================
 #
@@ -55,7 +46,7 @@ package require Itcl
 namespace import itcl::*
 
 # Provide display functions
-source $PATH/core/low_proc.tcl
+source core/low_proc.tcl
 # --------------------- End : Requirement --------------------------------
 
 # --------------------- User management functions ------------------------
@@ -70,7 +61,7 @@ proc list_init {} {
 	interp alias {} list.destroy_whitcontent {} list_destroy_whitcontent
 	if { [ itcl::find classes stre ] == "" } {
 		pdebug "List management initialization : load Stream storage interface"
-		source $::PATH/storage/storage_stream.tcl
+		source storage/storage_stream.tcl
 	}
 	pdebug "List's management interface initialization : end"
 }

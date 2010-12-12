@@ -5,16 +5,6 @@
 #
 # Copyright : 
 #		Copyright (C) 2010 Jonathan Roudiere <joe.roudiere@gmail.com>
-#
-# Licence : 
-# 
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation;  either version 2, or (at your option)
-# any later version.
-#
-# See LICENSE file.
-
 
 # =============================== Storage API =============================
 #
@@ -118,7 +108,7 @@ package require Itcl
 namespace import itcl::*
 
 # Provide display functions
-source $PATH/core/low_proc.tcl
+source core/low_proc.tcl
 
 # --------------------- End : Requirement --------------------------------
 
@@ -853,7 +843,7 @@ proc storage.newmesg { stream } {
 # load it several time but we want to able to source several time this file.
 if { ![ regexp {list.new} [info commands] ] } {
 	pdebug "Storage's management interface initialization"
-	source $PATH/storage/storage_list.tcl
+	source storage/storage_list.tcl
 	storage_init
 }
 # -------------------------------------------------------------------------

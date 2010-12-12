@@ -5,16 +5,6 @@
 #
 # Copyright : 
 #		Copyright (C) 2010 Jonathan Roudiere <joe.roudiere@gmail.com>
-#
-# Licence : 
-# 
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation;  either version 2, or (at your option)
-# any later version.
-#
-# See LICENSE file.
-
 
 # =============================== Stream API =============================
 #
@@ -102,7 +92,7 @@ package require Itcl
 namespace import itcl::*
 
 # Provide display functions
-source $::PATH/core/low_proc.tcl
+source core/low_proc.tcl
 
 # storage_user.tcl must be loaded after Stream managment interface initialization
 # --------------------- End : Requirement --------------------------------
@@ -230,7 +220,7 @@ if {[string compare [find classes stream] "" ]} {
 }
 
 # Must be load after Stream clean up
-source $::PATH/storage/storage_user.tcl
+source storage/storage_user.tcl
 
 # Initialize Stream management interface
 stream_init

@@ -1,0 +1,71 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+gui_Motion	gui-main.tcl	/^proc gui_Motion {W X Y x y} {$/;"	p
+gui_StreamDrop	gui-main.tcl	/^proc gui_StreamDrop {child frame_or_tab} {$/;"	p
+gui_StreamRelease	gui-main.tcl	/^proc gui_StreamRelease {W X Y x y } {$/;"	p
+gui_apply_globalconf	gui-configfunct.tcl	/^proc gui_apply_globalconf {} {$/;"	p
+gui_apps_traces	gui-mainfuncts.tcl	/^proc gui_apps_traces { mesg } {$/;"	p
+gui_ask_user_its_profile	gui-configfunct.tcl	/^proc gui_ask_user_its_profile { ret } {$/;"	p
+gui_ask_user_its_profile_popup_notfound	gui-configfunct.tcl	/^proc gui_ask_user_its_profile_popup_notfound {} {$/;"	p
+gui_ask_user_its_profile_popup_ok	gui-configfunct.tcl	/^proc gui_ask_user_its_profile_popup_ok {} {$/;"	p
+gui_ask_user_its_profile_popup_who	gui-configfunct.tcl	/^proc gui_ask_user_its_profile_popup_who {} {$/;"	p
+gui_create_user_stream	gui-configfunct.tcl	/^proc gui_create_user_stream {} {$/;"	p
+gui_delavailable	gui-mainfuncts.tcl	/^proc gui_delavailable { stream } {$/;"	p
+gui_delforward	gui-mainfuncts.tcl	/^proc gui_delforward { stream } {$/;"	p
+gui_exit_on_error	gui-tab-popups.tcl	/^proc gui_exit_on_error { funct mesg } {$/;"	p
+gui_hide_subscribed_win	gui-tab-subscribed.tcl	/^proc gui_hide_subscribed_win {} {$/;"	p
+gui_init_config_and_profile	gui-configfunct.tcl	/^proc gui_init_config_and_profile {} {$/;"	p
+gui_init_globalconfig	gui-configfunct.tcl	/^proc gui_init_globalconfig {} {$/;"	p
+gui_init_userconfig	gui-configfunct.tcl	/^proc gui_init_userconfig {} {$/;"	p
+gui_isconfdir	gui-configfunct.tcl	/^proc gui_isconfdir {} {$/;"	p
+gui_menucmd_about	gui-tab-popups.tcl	/^proc gui_menucmd_about {} {$/;"	p
+gui_menucmd_active	gui-tab-state.tcl	/^proc gui_menucmd_active {} {$/;"	p
+gui_menucmd_current	gui-tab-userprofile.tcl	/^proc gui_menucmd_current {} {$/;"	p
+gui_menucmd_forward	gui-tab-forwarded.tcl	/^proc gui_menucmd_forward {} {$/;"	p
+gui_menucmd_global	gui-tab-globalconfig.tcl	/^proc gui_menucmd_global {} {$/;"	p
+gui_menucmd_help	gui-tab-popups.tcl	/^proc gui_menucmd_help {} {$/;"	p
+gui_menucmd_inputs	gui-tab-inputs.tcl	/^proc gui_menucmd_inputs {} {$/;"	p
+gui_menucmd_localsend	gui-tab-yourmesg.tcl	/^proc gui_menucmd_localsend {} {$/;"	p
+gui_menucmd_nettraces	gui-tab-nettraces.tcl	/^proc gui_menucmd_nettraces {} {$/;"	p
+gui_menucmd_outputs	gui-tab-outputs.tcl	/^proc gui_menucmd_outputs {} {$/;"	p
+gui_menucmd_passive	gui-tab-state.tcl	/^proc gui_menucmd_passive {} {$/;"	p
+gui_menucmd_pietraces	gui-tab-pietraces.tcl	/^proc gui_menucmd_pietraces {} {$/;"	p
+gui_menucmd_quit	gui-tab-popups.tcl	/^proc gui_menucmd_quit {} {$/;"	p
+gui_menucmd_scan	gui-tab-state.tcl	/^proc gui_menucmd_scan {} {$/;"	p
+gui_menucmd_subscribed	gui-tab-subscribed.tcl	/^proc gui_menucmd_subscribed {} {$/;"	p
+gui_netmesg	gui-mainfuncts.tcl	/^proc gui_netmesg { mesg from } {$/;"	p
+gui_netmesg_recv	gui-mainfuncts.tcl	/^proc gui_netmesg_recv { mesg } {$/;"	p
+gui_netmesg_send	gui-mainfuncts.tcl	/^proc gui_netmesg_send { mesg } {$/;"	p
+gui_newavailable	gui-mainfuncts.tcl	/^proc gui_newavailable { stream } {$/;"	p
+gui_newforward	gui-mainfuncts.tcl	/^proc gui_newforward { stream } {$/;"	p
+gui_pressOnStream	gui-main.tcl	/^proc gui_pressOnStream {w} {$/;"	p
+gui_readconf_global	gui-configfunct.tcl	/^proc gui_readconf_global {} {$/;"	p
+gui_readconf_user	gui-configfunct.tcl	/^proc gui_readconf_user {} {$/;"	p
+gui_save_profile	gui-configfunct.tcl	/^proc gui_save_profile { what } {$/;"	p
+gui_save_profile_global_popup_ok	gui-configfunct.tcl	/^proc gui_save_profile_global_popup_ok {} {$/;"	p
+gui_save_profile_user_popup_ok	gui-configfunct.tcl	/^proc gui_save_profile_user_popup_ok {} {$/;"	p
+gui_save_profile_user_popup_restart	gui-configfunct.tcl	/^proc gui_save_profile_user_popup_restart {} {$/;"	p
+gui_send_mesg	gui-mainfuncts.tcl	/^proc gui_send_mesg {} {$/;"	p
+gui_stream_getinfos_rcv	gui-mainfuncts.tcl	/^proc gui_stream_getinfos_rcv { stream } {$/;"	p
+gui_stream_getinfos_snd	gui-mainfuncts.tcl	/^proc gui_stream_getinfos_snd { stream } {$/;"	p
+gui_stream_getinfos_snd_popup_ok	gui-mainfuncts.tcl	/^proc gui_stream_getinfos_snd_popup_ok { stream } {$/;"	p
+gui_stream_recvmesg	gui-mainfuncts.tcl	/^proc gui_stream_recvmesg { stream mesg } {$/;"	p
+gui_subscrib	gui-mainfuncts.tcl	/^proc gui_subscrib { stream } {$/;"	p
+gui_subscribed_add	gui-tab-subscribed.tcl	/^proc gui_subscribed_add { stream } {$/;"	p
+gui_subscribed_newmesg	gui-tab-subscribed.tcl	/^proc gui_subscribed_newmesg { stream mesg } {$/;"	p
+gui_subscribed_rem	gui-tab-subscribed.tcl	/^proc gui_subscribed_rem { stream } {$/;"	p
+gui_subscribed_update	gui-tab-subscribed.tcl	/^proc gui_subscribed_update { stream } {$/;"	p
+gui_tab_inputs	gui-tab-inputs.tcl	/^proc gui_tab_inputs {mesg mesgtype} {$/;"	p
+gui_tab_localsend	gui-tab-yourmesg.tcl	/^proc gui_tab_localsend { mesg } {$/;"	p
+gui_tab_nettraces	gui-tab-nettraces.tcl	/^proc gui_tab_nettraces { mesg from } {$/;"	p
+gui_tab_outputs	gui-tab-outputs.tcl	/^proc gui_tab_outputs {mesg mesgtype} {$/;"	p
+gui_tab_pietraces	gui-tab-pietraces.tcl	/^proc gui_tab_pietraces { mesg } {$/;"	p
+gui_tab_showforwarded_add	gui-tab-forwarded.tcl	/^proc gui_tab_showforwarded_add { stream } {$/;"	p
+gui_tab_showforwarded_rem	gui-tab-forwarded.tcl	/^proc gui_tab_showforwarded_rem { stream } {$/;"	p
+gui_tab_showforwarded_update	gui-tab-forwarded.tcl	/^proc gui_tab_showforwarded_update { stream } {$/;"	p
+gui_unforward	gui-mainfuncts.tcl	/^proc gui_unforward { stream } {$/;"	p
+gui_unsubscrib	gui-mainfuncts.tcl	/^proc gui_unsubscrib { stream } {$/;"	p

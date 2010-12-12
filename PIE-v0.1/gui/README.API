@@ -1,0 +1,112 @@
+
+
+					--- PIE GUI API ---
+
+
+PIE GUI has a simple set of  functions which can be call from
+the top level script in order to change its state. So we just
+give  details  about them and one word for other internal GUI 
+functions. In order  to use GUI just source "gui-init.tcl" in 
+the top level script.
+
+There are two kind of fonctions, fonctions which  are  called
+from  top  level script and fonctions which call other in the 
+top level script.
+
+Important  note : GUi is designed to log all events, so each 
+message received or sent over the network, all debug display
+all forwarded stream must be signaled to the GUI through one
+a its function.
+
+
+Public GUI fonctions
+--------------------
+
+ => call from/to 	: core => gui
+ --------------------------------
+
+gui_newavailable { stream }				Function to call when a new stream is available
+gui_delavailable { stream }				Function to call when a stream is no longer available
+
+gui_newforward { stream }				Function to call when a new stream is forwarded
+gui_delforward { stream }				Function to call when a stream is no longer forwarded
+
+gui_stream_recvmesg { stream mesg }		Function to call when a stream send a message to local user
+										(stream is the stream object/name, mesg is the text message (payload))
+
+gui_netmesg { mesg from }				Function to call when a mesg is send/received over the network
+										(mesg is the network mesg with all field (not just the payload),
+										from must be "input" or "output")
+
+gui_stream_getinfos_rcv { stream }		Function call when a getinfo message is received 
+
+gui_apps_traces { mesg }				To log an event from any script of PIE (debug)
+
+
+ => call from/to	: gui => core
+ --------------------------------
+
+gui_subscrib { stream }					Function call when user subscribed to a stream (CALL A CORE FUNCTION : TODO)
+gui_unsubscrib { stream }				Function call when user unsubscribed to a stream (CALL A CORE FUNCTION : TODO)
+
+gui_unforward { stream }				Function call when user choose to stop to forward a stream from GUI (CALL A CORE FUNCTION : TODO)
+gui_send_mesg {}						Function call when user send a message (CALL A CORE FUNCTION : TODO)
+
+gui_stream_getinfos_snd { stream }		Function call when user want to get information about a stream (mesg type : getinfo, CALL A CORE FUNCTION : TODO)
+
+
+Internals GUI functions
+-----------------------
+
+gui_apply_globalconf					Apply global conf to the GUI, after read global.conf
+gui_ask_user_its_profile				Switch either user has one, zero or several profile
+gui_ask_user_its_profile_popup_notfound	Open a popup when user hasn't a profile file
+gui_ask_user_its_profile_popup_ok		Open a popup when user has a profile, to inform him that it 's ok
+gui_ask_user_its_profile_popup_who		Open a popup when user has several profile, to choose one
+gui_create_user_stream					Create stream for local user when config have been read
+gui_exit_on_error						Open a popup on error
+gui_hide_subscribed_win					Show or hide subscribed window
+gui_init_config_and_profile				Init profile and global settings when there aren't any conf files
+gui_init_globalconfig					Init global settings file $HOME/.pie/global.conf
+gui_init_userconfig						Init user profile file HOME/.pie/NICKNAME.conf
+gui_isconfdir							Try to find configuration directory (default is $HOME/.pie)
+gui_menucmd_about						Show or hide About tab
+gui_menucmd_active						Change state of PIE to active
+gui_menucmd_current						Show or hide Current profile tab
+gui_menucmd_forward						Show or hide forwarded streams tab
+gui_menucmd_global						Show or hide Global settings tab
+gui_menucmd_help						Show or hide help tab
+gui_menucmd_inputs						Show or hide Network inputs tab
+gui_menucmd_localsend					Show or hide Your messages tab
+gui_menucmd_nettraces					Show or hide Network traces tab
+gui_menucmd_outputs						Show or hide Network outputs tab
+gui_menucmd_passive						Change state of PIE to passive
+gui_menucmd_pietraces					Show or hide debug/traces tab
+gui_menucmd_quit						Open a popup to ask user if he really want quit PIE
+gui_menucmd_scan						Change state of PIE to scan
+gui_menucmd_subscribed					Show or hide tab
+gui_Motion								Drag and drop feature (get mouse position)
+gui_netmesg_recv						Write a message in inputs tab
+gui_netmesg_send						Write a message in outputs tab
+gui_pressOnStream						Drag and drop feature (stream is selected with mouse)
+gui_readconf_global						Read global configuratuion file (default is $HOME/.pie/global.conf)
+gui_readconf_user						Read user configuratuion file (default is $HOME/.pie/NICKNAME.conf)
+gui_save_profile						Call when user press "save" button in global/current tab
+gui_save_profile_global_popup_ok		Open a popup when user save current global config
+gui_save_profile_user_popup_ok			Open a popup when user save his current profile
+gui_save_profile_user_popup_restart		Open a popup when user change nickname/car_id field in his profile to ask him to restart PIE
+gui_StreamDrop							Drag and drop feature (where stream is drop)
+gui_stream_getinfos_snd_popup_ok		Open a popup to inform use that his getinfo request is gone
+gui_StreamRelease						Drag and drop feature (when a stream is drop)
+gui_subscribed_add						Add a stream in subscribed streams tab
+gui_subscribed_newmesg					Add a mesg of a subscribed stream
+gui_subscribed_rem						Del a stream in subscribed streams tab
+gui_subscribed_update					Update tab of a subscribed stream 
+gui_tab_inputs							Add a packets in Network inputs tab
+gui_tab_localsend						Add a message in Your messages tab
+gui_tab_nettraces						Add a packets in Network tab
+gui_tab_outputs							Add a packets in Network outputs tab
+gui_tab_pietraces						Add a debug traces (a message)
+gui_tab_showforwarded_add				Add a stream in forwarded streams tab
+gui_tab_showforwarded_rem				Del a stream in forwarded streams tab
+gui_tab_showforwarded_update			Update tab forwarded streams with streams objects
