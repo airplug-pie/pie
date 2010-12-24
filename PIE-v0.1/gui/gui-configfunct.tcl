@@ -189,7 +189,7 @@ proc gui_ask_user_its_profile_popup_ok {} {
 	set popup_guard 0
 	set OldFocus [focus]
 	set popup_ok [ toplevel .popup_ok ]
-	wm title .popup_ok "Profile found !!"
+	wm title .popup_ok "Profile found"
 	message $popup_ok.msg -aspect 5000 -justify center \
 		-text "You have found a configuration file for user : $gui(username)\n\nTo change profile,\nuse menu Preferences -> current profile\nand save a new profile"
 	button $popup_ok.exit -text "Close" -command { set popup_guard 1 }
@@ -208,7 +208,7 @@ proc gui_ask_user_its_profile_popup_who {} {
 	set popup_guard 0
 	set OldFocus [focus]
 	set popup_who [ toplevel .popup_who ]
-	wm title .popup_who "Several profiles found !!"
+	wm title .popup_who "Several profiles found"
 	message $popup_who.msg -aspect 5000 -justify center \
 		-text "You have found several configuration file for user profile\n\nClick on one to use\n\nYou can change later by using menu Preferences -> current profile"
 	pack $popup_who.msg -pady 4
@@ -256,7 +256,7 @@ proc gui_ask_user_its_profile { ret } {
 		"ok" {
 			gui_apps_traces "gui_ask_user_its_profile : no profile found, only one, so use it"
 			set gui(username_conffile) "$gui(configdir)/$gui(username).conf"
-			gui_ask_user_its_profile_popup_ok
+			#gui_ask_user_its_profile_popup_ok
 		}
 		"who" {
 			gui_apps_traces "gui_ask_user_its_profile : no profile found but many, ask who use"
