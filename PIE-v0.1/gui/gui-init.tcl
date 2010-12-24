@@ -20,53 +20,53 @@ namespace import itcl::*
 # ----------------------- End : Requirement ------------------------------
 
 # Main window definition
-source gui/gui-main.tcl
+source $::PATH/gui/gui-main.tcl
 # GUI function API 
-source gui/gui-mainfuncts.tcl
+source $::PATH/gui/gui-mainfuncts.tcl
 
 # Tab your messages and its functions
-source gui/gui-tab-yourmesg.tcl
+source $::PATH/gui/gui-tab-yourmesg.tcl
 
 # Tab your messages and its functions
-source gui/gui-tab-nettraces.tcl
+source $::PATH/gui/gui-tab-nettraces.tcl
 
 # Tab Pie traces (debug) and its functions
-source gui/gui-tab-pietraces.tcl
+source $::PATH/gui/gui-tab-pietraces.tcl
 
 # Tab network inputs and its functions
-source gui/gui-tab-inputs.tcl
+source $::PATH/gui/gui-tab-inputs.tcl
 
 # Tab network outputs and its functions
-source gui/gui-tab-outputs.tcl
+source $::PATH/gui/gui-tab-outputs.tcl
 
 # Tab forwarded streams and its functions
-source gui/gui-tab-forwarded.tcl
+source $::PATH/gui/gui-tab-forwarded.tcl
 
 # window subscribed streams and its function
-source gui/gui-tab-subscribed.tcl
+source $::PATH/gui/gui-tab-subscribed.tcl
 
 # Function used at startup to look for config
 # to initialized global variables and create
 # local user stream 
-source gui/gui-configfunct.tcl
+source $::PATH/gui/gui-configfunct.tcl
 
 # Tab current profile and its function
-source gui/gui-tab-userprofile.tcl
+source $::PATH/gui/gui-tab-userprofile.tcl
 
 # Tab global and its function
-source gui/gui-tab-globalconfig.tcl
+source $::PATH/gui/gui-tab-globalconfig.tcl
 
 # Popups window (error, About, Help, Quit) 
-source gui/gui-tab-popups.tcl
+source $::PATH/gui/gui-tab-popups.tcl
 
 # Function to switch between states (menu)
-source gui/gui-tab-state.tcl
+source $::PATH/gui/gui-tab-state.tcl
 
 # Provide display functions
-source core/low_proc.tcl
+source $::PATH/core/low_proc.tcl
 
 # Provide storage/stream API
-source storage/storage_api.tcl
+source $::PATH/storage/storage_api.tcl
 
 
 # ---------------- Gui initialisation ------------------
