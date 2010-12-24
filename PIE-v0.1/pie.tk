@@ -39,7 +39,7 @@ if { [ info exists env(APG_PATH) ] == 1 } {
 		APG_vrb_dispnotif "utilisation de la distribution airplug $APG_PATH"
 	}
 } else {
-	;# in order to try PIE without Airplug
+	# in order to try PIE without Airplug
 	set PATH	[exec pwd]
 	set liste_args	$argv
 }
@@ -54,7 +54,7 @@ foreach option $liste_args {
 		--configdir {
 			set PIE_configdir $option_value
 		}
-		--gobalconf {
+		--globalconf {
 			set PIE_globalfile $option_value
 		}
 		--testgui {
@@ -74,7 +74,7 @@ source $PATH/pie-svg.tk
 source $PATH/storage/storage_api.tcl
 source $PATH/pie-heartbeat.tcl
 
-# Start PIE GUI (storage is load too)
+# Start PIE GUI (storage is loaded too)
 source $PATH/gui/gui-init.tcl
 
 
