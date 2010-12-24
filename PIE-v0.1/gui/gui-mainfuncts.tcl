@@ -138,18 +138,19 @@ proc gui_send_mesg {} {
 	global gui
 	gui_apps_traces "gui_send_mesg : you have sent a new mesg"
 	;# - add to "your messages" and clean
-	;#  - get text
-	set msg [$gui(text_area) get 0.0 {1.0 lineend} ]
-	;#  - add to your messages
-	gui_tab_localsend $msg
-	;#  - clean text area
+	;# - get text
+	set msg_content [$gui(text_area) get 0.0 {1.0 lineend} ]
+	;# - add to your messages
+	gui_tab_localsend $msg_content
+	;# - clean text area
 	$gui(text_area) insert 0.0 "sent" ;# to be sure its not empty
 	$gui(text_area) delete 0.0 end
 	;# - add to counter
 	incr gui(nblocalmesg_snd) 1
-	;#  - send a copy to core 
-	;# TODO_CALL_CORE
-
+	;# - the message is posted
+	set net_msg [ PIE_post $msg_content ]
+	;# - network logging
+	gui_tab_nettraces $net_msg "output"
 }
 
 # global management function

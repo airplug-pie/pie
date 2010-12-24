@@ -13,45 +13,6 @@
 ###############################################################################
 
 
-### ZONE GRAPHIQUE DU MODULE ##################################################
-
-# Definition de la zone horizontale
-# NB : cette zone est affichee (pack) avec l'instruction
-#      APG_int_addzone snd "Emissions" 1 du fichier pie.tk,
-#      qui l'ajoute egalement dans le menu.
-
-labelframe .snd -pady 2 -padx 2 \
-    -text "Emission \[$APP, ident = $APG_ident\]" -fg $APG_clrttl
-
-# Definition de la sous-zone de saisie
-labelframe .snd.msg -text "message"
-entry .snd.msg.v -width 64 -textvariable PIE_snd_msg
-pack .snd.msg.v
-
-# Definition du bouton Envoyer
-button .snd.bt -text "Envoyer" \
-    -activebackground $APG_int_colbutton \
-    -foreground $APG_int_colbutton \
-    -font $APG_int_fnbutton \
-    -width 10 \
-    -state disable \
-    -command {
-	PIE_post $PIE_snd_msg
-    }
-
-# Touche entree sur la sous-zone de saisie => emission
-bind .snd.msg.v <Return> {
-  .snd.bt configure -relief sunken
-  PIE_post $PIE_snd_msg
-  after 10 {  .snd.bt configure -relief raised }
-}
-
-# Affichage des sous-zones de la zone snd
-pack .snd.bt .snd.msg -side left -fill y -pady 2
-
-###############################################################################
-
-
 ### PROCEDURES DU MODULE ######################################################
 
 proc PIE_gen_post_id { date content } {
@@ -63,7 +24,7 @@ proc PIE_post { content } {
   set date [ clock seconds ]
   set id [ PIE_gen_post_id $date $content ]
   
-  PIE_send_pie $id $date $content
+  return [ PIE_send_pie $id $date $content ]
 }
 
 proc PIE_gen_header { ttl tts type } {
@@ -88,6 +49,8 @@ proc PIE_send_pie { postid postdate postcontent } {
   APG_msg_addmsg msg $::PIE_msg_key_postcontent $postcontent
   
   APG_send_what $msg
+  
+  return $msg
 }
 
 ###############################################################################
