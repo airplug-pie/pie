@@ -92,7 +92,7 @@ package require Itcl
 namespace import itcl::*
 
 # Provide display functions
-source core/low_proc.tcl
+source $::PATH/core/low_proc.tcl
 
 # storage_user.tcl must be loaded after Stream managment interface initialization
 # --------------------- End : Requirement --------------------------------
@@ -220,7 +220,7 @@ if {[string compare [find classes stream] "" ]} {
 }
 
 # Must be load after Stream clean up
-source storage/storage_user.tcl
+source $::PATH/storage/storage_user.tcl
 
 # Initialize Stream management interface
 stream_init
@@ -235,6 +235,8 @@ class stream {
 	common nbstream
 	# number of stream object created
 	common sid 0
+	
+	common priority_range 40
 
 	public {
 		variable stream_id
@@ -244,6 +246,8 @@ class stream {
 		variable time_lastmsg
 		variable time_lasthello
 		variable nb_mesg
+		variable distance
+		variable priority
 	}
 
 	constructor {} {
@@ -253,6 +257,8 @@ class stream {
 		set stream_id $sid
 		set user [user #auto]
 		set car_id -1
+		set priority 0
+		set distance 0
 		set time_available [ clock format [clock seconds] -format %H:%M:%S ]
 		set time_lastmsg [ clock format [clock seconds] -format %H:%M:%S ]
 		set time_lasthello [ clock format [clock seconds] -format %H:%M:%S ]
@@ -267,10 +273,13 @@ class stream {
 		# get user object
 		interp alias {} $this.user {} ::stream::[$this cget -user]
 		# some stream getters and setters
-		foreach member [ list stream_id car_id time_available time_lastmsg time_lasthello nb_mesg ] {
+		foreach member [ list stream_id car_id time_available time_lastmsg time_lasthello nb_mesg distance priority] {
 			interp alias {} $this.$member {} $this cget -$member
 			interp alias {} $this.$member.set {} $this configure -$member
 		}
+		interp alias {} $this.priority.inc {} $this priority_inc
+		interp alias {} $this.priority.dec {} $this priority_dec
+			
 		interp alias {} $this.nbstream {} $this nbu
 		interp alias {} $this.all {} $this show
 		interp alias {} $this.infos {} $this stream_info
@@ -297,10 +306,13 @@ class stream {
 		interp alias {} $this.user.nbuser {} 
 		interp alias {} $this.user.all {}
 		interp alias {} $this.user {}
-		foreach member [ list stream_id car_id time_available time_lastmsg time_lasthello nb_mesg ] {
+		foreach member [ list stream_id car_id time_available time_lastmsg time_lasthello nb_mesg distance priority ] {
 			interp alias {} $this.$member {}
 			interp alias {} $this.$member.set {}
 		}
+		interp alias {} $this.priority.inc {}
+		interp alias {} $this.priority.dec {}
+		
 		interp alias {} $this.time_available_get {}
 		interp alias {} $this.time_lastmsg_get {}
 		interp alias {} $this.time_lasthello_get {}
@@ -317,7 +329,7 @@ class stream {
 	} ;# end destructor
 
 	method show {} {
-		set attr [ list $stream_id $car_id $time_available $time_lastmsg $time_lasthello $nb_mesg ]
+		set attr [ list $stream_id $car_id $time_available $time_lastmsg $time_lasthello $nb_mesg $distance $priority]
 		foreach i [ $this.user.all ] { lappend attr  $i }
 		return $attr
 	}
@@ -337,7 +349,41 @@ class stream {
 	method incrmesg {} {
 		incr nb_mesg
 	}
- 
+	
+	method priority_inc {} {
+		set that "stream"
+		append that $stream_id
+		if {[storage.stream.isforgotten $that] } {
+			if { ![storage.stream.isavailable $that] } {
+				storage.available $that
+			}
+			storage.unforgotten $that
+			if { $priority <= [expr 0 - $priority_range] } {
+				set priority 0
+			}
+			
+		}
+		if { $priority < $priority_range } {
+			incr priority
+		}
+		foreach listname [storage.stream_list $that] {
+			$listname.sort
+		}
+ 	}
+ 	
+ 	method priority_dec {} {
+ 		set that "stream"
+		append that $stream_id
+ 		incr priority -1
+ 		if { $priority <= [expr 0 - $priority_range] } {
+ 			storage.forgotten $that
+ 			storage.unavailable $that
+ 		}
+ 		foreach listname [storage.stream_list $that] {
+			$listname.sort
+		}
+ 	}
+ 	
 	method get_timediff { field } {
 		set d [clock scan [ $field ] ]
 		set e [clock scan [ clock format [clock seconds] -format %H:%M:%S ]]
@@ -345,4 +391,15 @@ class stream {
 	}
 }
 # ----------------- End : Stream Object definition -------------------------
+
+proc stream_compare { arg0 arg1 } {
+	if {[$arg0.priority] > [$arg1.priority]} {
+		return 1
+	} elseif { [$arg0.priority] == [$arg1.priority] } {
+		return 0
+	} else {
+		return -1
+	}
+
+}
 

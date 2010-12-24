@@ -46,7 +46,7 @@ package require Itcl
 namespace import itcl::*
 
 # Provide display functions
-source core/low_proc.tcl
+source $PATH/core/low_proc.tcl
 # --------------------- End : Requirement --------------------------------
 
 # --------------------- User management functions ------------------------
@@ -61,7 +61,7 @@ proc list_init {} {
 	interp alias {} list.destroy_whitcontent {} list_destroy_whitcontent
 	if { [ itcl::find classes stre ] == "" } {
 		pdebug "List management initialization : load Stream storage interface"
-		source storage/storage_stream.tcl
+		source $::PATH/storage/storage_stream.tcl
 	}
 	pdebug "List's management interface initialization : end"
 }
@@ -89,10 +89,16 @@ proc list_created { listname } {
 }
 
 # $listname is created when its commands exist and exist (really) when it 's not empty
-proc list_new { listname } {
+proc list_new { listname { sort 0 } } {
 	if { ![ list_created $listname ] } {
 		interp alias {} $listname {} uplevel #0 return $$listname
-		interp alias {} $listname.add {} list_add $listname
+		if { $sort == 0 } {
+			interp alias {} $listname.add {} list_add $listname
+			interp alias {} $listname.sort {} nop
+		} else {
+			interp alias {} $listname.add {} list_sort_add $listname
+			interp alias {} $listname.sort {} list_sort $listname $sort
+		}
 		interp alias {} $listname.show {} list_show $listname
 		interp alias {} $listname.search {} list_search $listname
 		interp alias {} $listname.nb {} list_nb $listname
@@ -124,6 +130,7 @@ proc list_delete { listname } {
 		interp alias {} $listname {}
 		interp alias {} $listname.nb {}
 		interp alias {} $listname.add {}
+		interp alias {} $listname.sort {}
 		interp alias {} $listname.show {}
 		interp alias {} $listname.search {}
 		interp alias {} $listname.remove {}
@@ -410,5 +417,21 @@ proc list_search_user_bymember { listname member val } {
 }
 
 # ------------------ End List Object manipulation ------------------------
+
+
+proc list_sort_add { listname val } {
+	if {[list_add $listname $val] == 1} {
+		$listname.sort
+		return 1
+	}
+	else {
+		return 0
+	}
+}
+
+proc list_sort {listname sort} {
+	upvar #0 $listname l
+	set l [ lsort -decreasing -command $sort $l ]
+}
 
 
