@@ -94,28 +94,3 @@ proc gui_menucmd_about {} {
 }
 # -----------------------------------------
 
-# ------------ Popup Quit -----------------
-proc gui_menucmd_quit {} {
-	global gui
-	set popup_guard 0
-	set OldFocus [focus]
-	set popup_quit [ toplevel .popup_quit ]
-	set popup_quitf [frame $popup_quit.f]
-	wm title .popup_quit "PIE - Quit"
-	message $popup_quit.msg -aspect 5000 -justify center \
-		-text "Are you sure you want to leave PIE ?"
-	button $popup_quitf.exity -text "Yes" -command { set popup_guard 1; destroy . }
-	button $popup_quitf.exitn -text "Cancel" -command { set popup_guard 1 }
-	pack $popup_quit.msg
-	pack $popup_quitf -fill x
-	pack $popup_quitf.exity $popup_quitf.exitn -side left -fill x -expand yes
-	gui_apps_traces "gui_menucmd_quit : Do you really want quit PIe??"
-	grab $popup_quit
-	focus $popup_quit
-	tkwait variable popup_guard
-	grab release $popup_quit
-	destroy $popup_quit
-	focus $OldFocus
-}
-
-# -----------------------------------------

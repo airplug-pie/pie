@@ -24,7 +24,7 @@ namespace import itcl::*
 # Create menu description
 set menudesc {
 	"&File" all file 0 {
-		{command "&Quit"				{} "Close PIE application" 					{Ctrl q} -accelerator "ctl-q" -command gui_menucmd_quit}
+		{command "&Quit"				{} "Close PIE application" 					{Ctrl q} -accelerator "ctl-q" -command APG_int_btend}
 	}
 	"&Mode" {} {} 0 {
 		{checkbutton "&Active"			{} "PIE Active mode"						{Ctrl a} -accelerator "ctl-a" -variable gui(state_active)  -command gui_menucmd_active}

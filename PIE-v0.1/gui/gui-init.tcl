@@ -132,9 +132,8 @@ gui_menucmd_passive
 # Change window title
 wm title . $gui(apps_name)
 
-# Set appropriate size, set exit conf
+# Set appropriate size
 wm geometry . 600x700
-wm protocol . WM_DELETE_WINDOW gui_menucmd_quit
 
 # PIE start
 # ---------
