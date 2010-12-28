@@ -22,9 +22,9 @@ set PIE_msg_key_tts "TTS"
 set PIE_msg_key_type "TYPE"
 
 # Champs des messages PIE
-set PIE_msg_key_postid "ID"
-set PIE_msg_key_postdate "DATE"
-set PIE_msg_key_postcontent "MSG"
+set PIE_msg_key_post_id "ID"
+set PIE_msg_key_post_date "DATE"
+set PIE_msg_key_post_content "MSG"
 
 # Champs du heartbeat
 set PIE_msg_key_hb_id "Id"

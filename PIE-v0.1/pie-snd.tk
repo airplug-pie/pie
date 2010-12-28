@@ -45,9 +45,9 @@ proc PIE_send_pie { postid postdate postcontent } {
   
   set msg [ PIE_gen_header $ttl $tts $::PIE_msg_type_pie ]
 
-  APG_msg_addmsg msg $::PIE_msg_key_postid $postid
-  APG_msg_addmsg msg $::PIE_msg_key_postdate $postdate
-  APG_msg_addmsg msg $::PIE_msg_key_postcontent $postcontent
+  APG_msg_addmsg msg $::PIE_msg_key_post_id $postid
+  APG_msg_addmsg msg $::PIE_msg_key_post_date $postdate
+  APG_msg_addmsg msg $::PIE_msg_key_post_content $postcontent
   
   APG_send_what $msg
   
