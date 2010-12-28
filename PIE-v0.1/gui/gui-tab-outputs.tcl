@@ -24,6 +24,12 @@ namespace import itcl::*
 # as root path, so we just create tab's content by using root window path 
 # and we add it when it's necessary (when tab are show/hide)
 
+# ------------- Constants -----------------
+
+set PIE_gui_def_outputs_hello 0
+set PIE_gui_def_outputs_mesg 1
+set PIE_gui_def_outputs_info 2
+
 # --------- Tab Show Outputs --------------
 
 # Tab which allow to display all network output messages
@@ -87,22 +93,18 @@ proc gui_tab_outputs {mesg mesgtype} {
 	# unlock text area
 	$gui(tab_outputs.text) configure -state normal
 	# write messages
-	switch $mesgtype {
-		"hello" {
-				set wrt "HELLO"
-				incr gui(nbhello_send) 1
-				}
-		"mesg"  {
-				set wrt "MESSAGE"
-				}
-		"info"  {
-				set wrt "GETINFO"
-				incr gui(nnget_send) 1 
-				}
-		default {
-				set wrt "UNKNOWN"
-				}
+	if [ expr $mesgtype == $::PIE_gui_def_outputs_hello ] {
+		set wrt "HELLO"
+		incr gui(nbhello_send) 1
+	}	elseif [ expr $mesgtype == $::PIE_gui_def_outputs_mesg ] {
+		set wrt "MESSAGE"
+	}	elseif [ expr $mesgtype == $::PIE_gui_def_outputs_info ]  {
+		set wrt "GETINFO"
+		incr gui(nnget_send) 1 
+	}	else {
+		set wrt "UNKNOWN"
 	}
+
 	gui_tab_pietraces "gui_tab_outputs : add a message to tab (type : $wrt)"
 	$gui(tab_outputs.text) insert end "\n([ clock format [clock seconds] -format %H:%M:%S ])::TYPE($wrt) >> $mesg"
 	# lock
