@@ -9,12 +9,7 @@
 set PIE_field_eq "-"
 set PIE_field_delim ","
 set PIE_elt_delim "|"
-set PIE_key_id "Id"
-set PIE_key_nick "Nick"
-set PIE_key_dist "Dist"
 set PIE_not_found -1
-set PIE_key_offers "Offres"
-set PIE_key_forward "Fwd"
 
 set PIE_hbeat_delay 10000
 set PIE_hbeat_timer_active 0
@@ -48,9 +43,9 @@ proc PIE_add_elt { listname elt } {
 # return : element in the good format
 ###########################################################################
 proc PIE_gen_hbeat_elt { id nick dist } {
-	set elt [PIE_gen_field $::PIE_key_id $id]
-	PIE_add_field elt $::PIE_key_nick $nick
-	PIE_add_field elt $::PIE_key_dist $dist
+	set elt [PIE_gen_field $::PIE_msg_key_hb_id $id]
+	PIE_add_field elt $::PIE_msg_key_hb_nick $nick
+	PIE_add_field elt $::PIE_msg_key_hb_dist $dist
 	return $elt
 }
 
@@ -104,9 +99,9 @@ proc PIE_add_field { varelement mnemonique val } {
 # return : message to send
 ###########################################################################
 proc PIE_gen_heartbeat {} {
-	set msg [PIE_gen_header 0 0 'H']
-	APG_msg_addmsg msg $::PIE_key_offers [PIE_get_offers 500]
-	APG_msg_addmsg msg $::PIE_key_forward [PIE_get_forward 500]
+	set msg [PIE_gen_header 0 0 $::PIE_msg_type_heartbeat]
+	APG_msg_addmsg msg $::PIE_msg_key_hb_offers [PIE_get_offers 500]
+	APG_msg_addmsg msg $::PIE_msg_key_hb_forward [PIE_get_forward 500]
 	return $msg
 }
 
@@ -192,9 +187,9 @@ proc PIE_elt_splitstr { element mnemonique } {
 # element : element from the payload
 ###########################################################################
 proc PIE_process_element { element } {
-	set nick [PIE_elt_splitstr $element $::PIE_key_nick]
-	set id [PIE_elt_splitstr $element $::PIE_key_id]
-	set distance [PIE_elt_splitstr $element $::PIE_key_dist]
+	set nick [PIE_elt_splitstr $element $::PIE_msg_key_hb_nick]
+	set id [PIE_elt_splitstr $element $::PIE_msg_key_hb_id]
+	set distance [PIE_elt_splitstr $element $::PIE_msg_key_hb_dist]
 	
 	set stream [ storage.stream_search $car_id $nickname ]
 	if { $stream == "" } {

@@ -10,18 +10,28 @@
 
 ### VARIABLES DU MODULE #######################################################
 
+# Types de messages
 set PIE_msg_type_heartbeat 0
 set PIE_msg_type_pie 1
 
+# Champs des headers
 set PIE_msg_key_from "FROM"
 set PIE_msg_key_nick "NICK"
 set PIE_msg_key_ttl "TTL"
 set PIE_msg_key_tts "TTS"
 set PIE_msg_key_type "TYPE"
 
+# Champs des messages PIE
 set PIE_msg_key_postid "ID"
 set PIE_msg_key_postdate "DATE"
 set PIE_msg_key_postcontent "MSG"
+
+# Champs du heartbeat
+set PIE_msg_key_hb_id "Id"
+set PIE_msg_key_hb_nick "Nick"
+set PIE_msg_key_hb_dist "Dist"
+set PIE_msg_key_hb_offers "OFF"
+set PIE_msg_key_hb_forward "FWD"
 
 ###############################################################################
 
