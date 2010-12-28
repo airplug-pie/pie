@@ -11,5 +11,9 @@ proc PIE_log_send { msg } {
 	gui_tab_nettraces $msg "output"
 }
 
+proc PIE_log_send_pie { msg } {
+	gui_tab_outputs $msg $::PIE_gui_def_outputs_mesg
+}
+
 ###############################################################################
 

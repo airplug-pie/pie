@@ -50,6 +50,7 @@ proc PIE_send_pie { postid postdate postcontent } {
   APG_msg_addmsg msg $::PIE_msg_key_post_content $postcontent
   
   PIE_send_what $msg
+  PIE_log_send_pie $msg
 }
 
 proc PIE_send_what { msg } {
