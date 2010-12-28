@@ -17,7 +17,7 @@ set PIE_key_offers "Offres"
 set PIE_key_forward "Fwd"
 
 set PIE_hbeat_delay 10000
-set PIE_hbeat_timer_active 1
+set PIE_hbeat_timer_active 0
 ###########################################################################
 # Return a list of elements.
 #
