@@ -114,8 +114,7 @@ set gui(editor_area)		[ScrolledWindow $gui(main.texteditorf).editz -auto both -s
 set gui(text_area)			[text $gui(editor_area).txt -wrap word -width 2 -heigh 5 -bg white -undo yes]
 set gui(send_button)		[Button $gui(main.texteditorf).snd -text "Send" -state disable -command gui_send_mesg]
 
-# initialise text area and puts in ScrolledWindow
-$gui(text_area)				insert 0.0 "Write your messages here ..."
+# initialize text area and put in ScrolledWindow
 $gui(editor_area)			setwidget $gui(text_area)
 
 # ---------------------------- Drag and drop zone/action
