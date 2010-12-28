@@ -24,6 +24,11 @@ namespace import itcl::*
 # as root path, so we just create tab's content by using root window path 
 # and we add it when it's necessary (when tab are show/hide)
 
+# ------------- Constants -----------------
+
+set PIE_gui_def_net_in 0
+set PIE_gui_def_net_out 1
+
 # ---------- Tab Net Traces ---------------
 
 # Net traces allow to see all packets send or received 
@@ -115,10 +120,10 @@ proc gui_tab_nettraces { mesg from } {
 	# unlock text area
 	$gui(tab_nettraces.text) configure -state normal
 	# write messages (input < mesg||output > mesg)
-	if {$from == "input"} {
+	if [ expr $from == $::PIE_gui_def_net_in] {
 		gui_tab_pietraces "gui_tab_nettraces : add a incoming message (input)"
 		set wrt "\nINPUT([ clock format [clock seconds] -format %H:%M:%S ])  <<< $mesg"
-	} else {
+	} elseif [ expr $from == $::PIE_gui_def_net_out] {
 		gui_tab_pietraces "gui_tab_nettraces : add a outgoing message (output)"
 		set wrt "\nOUTPUT([ clock format [clock seconds] -format %H:%M:%S ]) >>> $mesg"
 	}

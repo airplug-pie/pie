@@ -8,7 +8,7 @@
 ### MODULE LOG ################################################################
 
 proc PIE_log_send { msg } {
-	gui_tab_nettraces $msg "output"
+	gui_tab_nettraces $msg $::PIE_gui_def_net_out
 }
 
 proc PIE_log_send_pie { msg } {
