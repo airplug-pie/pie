@@ -99,7 +99,7 @@ set gui(main.available) 	$gui(main.p.r)	;# just an alias for naming consistency
 # will contain "subscribed streams" and bottom pane will contain
 # text editor,
 set gui(main.subscribed)	[TitleFrame [$gui(main.p.l) add -weight 15 -minsize 400].subscribed -text "Subscribed streams"]
-set gui(main.texteditor)	[TitleFrame [$gui(main.p.l) add -weight 2  -minsize 100].texteditor -text "Your stream text editor"]
+set gui(main.texteditor)	[TitleFrame [$gui(main.p.l) add -weight 2  -minsize 100].texteditor -text "Message Publisher"]
 
 # Get associated frames of the 3 area of "PIE's interface" 
 set gui(main.subscribedf)	[$gui(main.subscribed) getframe]
