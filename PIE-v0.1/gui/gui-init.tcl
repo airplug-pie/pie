@@ -68,6 +68,8 @@ source $::PATH/core/low_proc.tcl
 # Provide storage/stream API
 source $::PATH/storage/storage_api.tcl
 
+# Define procedures overriding the ones from LIBAPGTK
+source $::PATH/gui/gui-override.tcl
 
 # ---------------- Gui initialisation ------------------
 

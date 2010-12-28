@@ -112,7 +112,7 @@ set gui(main.availablef)	[$gui(main.available)  getframe]
 #   ctrl-c/ctrl-v, undo/redo with ctrl-z and ctrl-y
 set gui(editor_area)		[ScrolledWindow $gui(main.texteditorf).editz -auto both -scrollbar vertical]
 set gui(text_area)			[text $gui(editor_area).txt -wrap word -width 2 -heigh 5 -bg white -undo yes]
-set gui(send_button)		[Button $gui(main.texteditorf).snd -text "Send" -command gui_send_mesg]
+set gui(send_button)		[Button $gui(main.texteditorf).snd -text "Send" -state disable -command gui_send_mesg]
 
 # initialise text area and puts in ScrolledWindow
 $gui(text_area)				insert 0.0 "Write your messages here ..."

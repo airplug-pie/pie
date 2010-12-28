@@ -70,7 +70,5 @@ source $PATH/pie-heartbeat.tcl
 
 # Start PIE GUI (storage is loaded too)
 source $PATH/gui/gui-init.tcl
-
-
 ###############################################################################
 
