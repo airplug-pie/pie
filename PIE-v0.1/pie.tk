@@ -10,7 +10,7 @@ exec wish "$0" "$@"
 #    see license.txt
 
 ### VARIABLES ET VALEURS PAR DEFAUT DE L'APP ##################################
-set PIE_nick "nonick"
+
 ###############################################################################
 
 ### INITIALISATION STANDARD DE L'APPLICATION COMPATIBLE AIRPLUG ###############

@@ -29,7 +29,8 @@ proc PIE_post { content } {
 
 proc PIE_gen_header { ttl tts type } {
   set header [ APG_msg_createmsg $::PIE_msg_key_from $::APG_ident ]
-  APG_msg_addmsg header $::PIE_msg_key_nick $::PIE_nick
+  
+  APG_msg_addmsg header $::PIE_msg_key_nick [ MainUser.user.nickname ]
   APG_msg_addmsg header $::PIE_msg_key_ttl $ttl
   APG_msg_addmsg header $::PIE_msg_key_tts $tts
   APG_msg_addmsg header $::PIE_msg_key_type $type
