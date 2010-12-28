@@ -54,7 +54,7 @@ proc PIE_send_pie { postid postdate postcontent } {
 
 proc PIE_send_what { msg } {
   APG_send_what $msg
-  gui_tab_nettraces $msg "output"
+  PIE_log_send $msg
 }
 
 ###############################################################################

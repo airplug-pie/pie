@@ -65,6 +65,7 @@ source $PATH/pie-msg.tk
 source $PATH/pie-snd.tk
 source $PATH/pie-rcv.tk
 source $PATH/pie-svg.tk
+source $PATH/pie-log.tk
 source $PATH/storage/storage_api.tcl
 source $PATH/pie-heartbeat.tcl
 
