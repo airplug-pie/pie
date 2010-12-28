@@ -49,9 +49,12 @@ proc PIE_send_pie { postid postdate postcontent } {
   APG_msg_addmsg msg $::PIE_msg_key_post_date $postdate
   APG_msg_addmsg msg $::PIE_msg_key_post_content $postcontent
   
+  PIE_send_what $msg
+}
+
+proc PIE_send_what { msg } {
   APG_send_what $msg
-  
-  return $msg
+  gui_tab_nettraces $msg "output"
 }
 
 ###############################################################################

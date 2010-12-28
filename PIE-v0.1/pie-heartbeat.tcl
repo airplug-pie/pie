@@ -292,7 +292,7 @@ proc PIE_garbage_timer {} {
 #
 ###########################################################################
 proc PIE_send_hbeat {} {
-	APG_send_what [PIE_gen_heartbeat]
+	PIE_send_what [PIE_gen_heartbeat]
 }
 
 ###########################################################################

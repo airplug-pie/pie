@@ -148,9 +148,7 @@ proc gui_send_mesg {} {
 	;# - add to counter
 	incr gui(nblocalmesg_snd) 1
 	;# - the message is posted
-	set net_msg [ PIE_post $msg_content ]
-	;# - network logging
-	gui_tab_nettraces $net_msg "output"
+	PIE_post $msg_content
 }
 
 # global management function
