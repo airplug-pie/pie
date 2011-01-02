@@ -27,54 +27,43 @@
 ##########################################################################
 proc APG_receive_what { what } {
 	
-	puts "================"
-	puts "recu : $what"
+	set ::PIE_rcv_msg $what
+	puts "recu : $::PIE_rcv_msg"
 
-	set listTmp [split $what "/"]
-	set msg_from [lindex [split [lindex $listTmp 1] "~"] 1]
-	set msg_nick [lindex [split [lindex $listTmp 2] "~"] 1]
-	set msg_ttl [lindex [split [lindex $listTmp 3] "~"] 1]
-	set msg_tts [lindex [split [lindex $listTmp 4] "~"] 1]
-	set msg_type [lindex [split [lindex $listTmp 5] "~"] 1]
+
+	#decoupage du message
+	set msg_from [APG_msg_splitstr ::PIE_rcv_msg FROM]
+	set msg_nick [APG_msg_splitstr ::PIE_rcv_msg NICK]
+	set msg_ttl [APG_msg_splitstr ::PIE_rcv_msg TTL]
+	set msg_tts [APG_msg_splitstr ::PIE_rcv_msg TTS]
+	set msg_type [APG_msg_splitstr ::PIE_rcv_msg TYPE]
 	
 	
 	#######type hearbeat#######
 	if {$msg_type == "0"} {
    		puts "heart"
-   		puts [lindex $listTmp 6]
-   		puts [lindex $listTmp 7]
-   		set msg_offre [lindex [split [lindex $listTmp 6] "~"] 1]		
-		set msg_forward [lindex [split [lindex $listTmp 7] "~"] 1] 	
+   		set msg_offre [APG_msg_splitstr ::PIE_rcv_msg OFF]
+   		set msg_forward [APG_msg_splitstr ::PIE_rcv_msg FWD]
+   		
+		#gestion des offres
+		PIE_proc_offers $msg_offre
 		
-		#split offre
-		#BUG ? split sur element separateur du flux
-		set listoffre [split $what "|"]
-		foreach offre $listoffre {
-			#TODO destion des offres sur $offre
-		}
-		
-		#split forward
-		#BUG ? split sur element separateur du flux
-		set listforward [split $what "|"]
-		foreach offre $listforward {
-			#TODO gestion des forward sur $forward
-		}
-		
-		##TODO inclure les fonctions utilisant le contenu du heart
+		#gestion des forwards
+		PIE_proc_forwards $msg_forward
+	
 	}
 	
 	
 	#######type message#######
 	if {$msg_type == "1"} {
 		puts "msg"
-		set msg_id [lindex [split [lindex $listTmp 6] "~"] 1]	
-		set msg_date [lindex [split [lindex $listTmp 7] "~"] 1]
-		set msg_content [lindex [split [lindex $listTmp 8] "~"] 1]
+		set msg_id [APG_msg_splitstr ::PIE_rcv_msg ID]
+		set msg_date [APG_msg_splitstr ::PIE_rcv_msg DATE]
+		set msg_content [APG_msg_splitstr ::PIE_rcv_msg MSG]
 		
 		#test si on est abonné
 		if {[storage.issubscribed $msg_from $msg_nick]} {
-			puts "issubscribed"
-			
+			puts "issubscribed"			
 			
 			#affichage du msg
 			#gui_stream_recvmesg { [storage.new_stream $msg_from $msg_nick] $msg_content }
@@ -85,6 +74,7 @@ proc APG_receive_what { what } {
 			} else {
 				set msg_ttl [expr $msg_ttl - 1]
 			}	
+			
 		} else {
 			#test si on a des voisins intéressé
 			if {[storage.isforwarded $msg_from $msg_nick]} {
