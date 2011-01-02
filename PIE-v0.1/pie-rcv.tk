@@ -78,7 +78,7 @@ proc APG_receive_what { what } {
 			
 			#affichage du msg
 			#gui_stream_recvmesg { [storage.new_stream $msg_from $msg_nick] $msg_content }
-			TODO couple a storage et la gui
+			#TODO couple a storage et la gui
 			
 			if {$msg_tts > 1} {
 				set msg_tts [expr $msg_tts - 1]
