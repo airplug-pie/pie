@@ -1,6 +1,6 @@
 #!/bin/sh
 # the next line restarts using wish \
-exec wish "$0" "$@"
+exec wish8.5 "$0" "$@"
 
 #    pie
 #    a twitter-like app for airplug
@@ -68,6 +68,8 @@ source $PATH/pie-svg.tk
 source $PATH/pie-log.tk
 source $PATH/storage/storage_api.tcl
 source $PATH/pie-heartbeat.tcl
+
+
 
 # Start PIE GUI (storage is loaded too)
 source $PATH/gui/gui-init.tcl

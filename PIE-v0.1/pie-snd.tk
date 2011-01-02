@@ -39,9 +39,9 @@ proc PIE_gen_header { ttl tts type } {
 }
 
 proc PIE_send_pie { postid postdate postcontent } {
-  #TODO PIE_send_pie: redefinir TTL et TTS
-  set ttl 1
-  set tts 1
+  #TODO PIE_send_pie: redefinir TTL et TTS	=> DONE	could be change
+  set ttl 32
+  set tts 16
   
   set msg [ PIE_gen_header $ttl $tts $::PIE_msg_type_pie ]
 

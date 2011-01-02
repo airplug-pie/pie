@@ -232,7 +232,7 @@ proc gui_ask_user_its_profile_popup_notfound {} {
 	set popup_notfound [ toplevel .popup_notfound ]
 	wm title .popup_notfound "No profiles found !!"
 	message $popup_notfound.msg -aspect 5000 -justify center \
-		-text "Please define and save your rofile before use PIE"
+		-text "Please define and save your profile before use PIE"
 	pack $popup_notfound.msg -pady 4
 	button $popup_notfound.ok -text "Ok" -command { set popup_guard 1 }
 	pack $popup_notfound.ok -pady 4

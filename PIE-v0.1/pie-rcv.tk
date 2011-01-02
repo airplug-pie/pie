@@ -13,7 +13,103 @@
 ###############################################################################
 
 
+
 ### PROCEDURE DU MODULE #######################################################
 
 ###############################################################################
 
+
+##########################################################################
+# Nom		 : APG_receive_what
+# Role		 : Surcharge de la procedure de libapgtk afin de traiter le message recu
+# Parametres : Le message
+# Retourne	 : Rien
+##########################################################################
+proc APG_receive_what { what } {
+	
+	puts "================"
+	puts "recu : $what"
+
+	set listTmp [split $what "/"]
+	set msg_from [lindex [split [lindex $listTmp 1] "~"] 1]
+	set msg_nick [lindex [split [lindex $listTmp 2] "~"] 1]
+	set msg_ttl [lindex [split [lindex $listTmp 3] "~"] 1]
+	set msg_tts [lindex [split [lindex $listTmp 4] "~"] 1]
+	set msg_type [lindex [split [lindex $listTmp 5] "~"] 1]
+	
+	
+	#######type hearbeat#######
+	if {$msg_type == "0"} {
+   		puts "heart"
+   		puts [lindex $listTmp 6]
+   		puts [lindex $listTmp 7]
+   		set msg_offre [lindex [split [lindex $listTmp 6] "~"] 1]		
+		set msg_forward [lindex [split [lindex $listTmp 7] "~"] 1] 	
+		
+		#split offre
+		#BUG ? split sur element separateur du flux
+		set listoffre [split $what "|"]
+		foreach offre $listoffre {
+			#TODO destion des offres sur $offre
+		}
+		
+		#split forward
+		#BUG ? split sur element separateur du flux
+		set listforward [split $what "|"]
+		foreach offre $listforward {
+			#TODO gestion des forward sur $forward
+		}
+		
+		##TODO inclure les fonctions utilisant le contenu du heart
+	}
+	
+	
+	#######type message#######
+	if {$msg_type == "1"} {
+		puts "msg"
+		set msg_id [lindex [split [lindex $listTmp 6] "~"] 1]	
+		set msg_date [lindex [split [lindex $listTmp 7] "~"] 1]
+		set msg_content [lindex [split [lindex $listTmp 8] "~"] 1]
+		
+		#test si on est abonné
+		if {[storage.issubscribed $msg_from $msg_nick]} {
+			puts "issubscribed"
+			
+			
+			#affichage du msg
+			#gui_stream_recvmesg { [storage.new_stream $msg_from $msg_nick] $msg_content }
+			TODO couple a storage et la gui
+			
+			if {$msg_tts > 1} {
+				set msg_tts [expr $msg_tts - 1]
+			} else {
+				set msg_ttl [expr $msg_ttl - 1]
+			}	
+		} else {
+			#test si on a des voisins intéressé
+			if {[storage.isforwarded $msg_from $msg_nick]} {
+				puts "is forwarded"
+				set msg_tts [expr $msg_tts - 1]
+			} else {
+				set msg_ttl [expr $msg_ttl - 1]
+			}
+		}
+		
+		
+		
+		#on relay le msg
+		if {$msg_tts > 1} {
+			set msg [ PIE_gen_header $msg_ttl $msg_tts $msg_type ]
+	
+  			APG_msg_addmsg msg $::PIE_msg_key_post_id $msg_id
+  			APG_msg_addmsg msg $::PIE_msg_key_post_date $msg_date
+  			APG_msg_addmsg msg $::PIE_msg_key_post_content $msg_content
+  
+  			PIE_send_what $msg
+  			PIE_log_send_pie $msg	
+		}
+	}
+
+	
+
+}
