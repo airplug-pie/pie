@@ -1,6 +1,6 @@
 #!/bin/sh
 # the next line restarts using wish \
-exec wish "$0" "$@"
+exec wish8.5 "$0" "$@"
 
 #    pie
 #    a twitter-like app for airplug
