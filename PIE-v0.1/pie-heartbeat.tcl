@@ -29,6 +29,10 @@
 # PIE_proc_offers 			Eval the offers
 # PIE_proc_forwards			Eval the Forward
 #
+#### Update Functions
+# PIE_update_offers_msg raw_msg		Return an offer list with incremented distances
+# PIE_update_forward_msg raw_msg	Return a forward list with incremented distances
+#
 #### See also Timers functions
 
 set PIE_field_eq "-"
@@ -290,8 +294,79 @@ proc PIE_garbage_collect_stream {} {
 
 
 
+###########################################################################
+### Update Functions
+###########################################################################
 
+###########################################################################
+# Update an offer message to forward
+# 
+# raw_msg : initial offers msg
+#
+###########################################################################
+proc PIE_update_offers_msg { raw_msg } {
+	set msg ""
+	foreach elt [PIE_stream_elt_split raw_msg] {
+		set new_elt [PIE_update_offers_elt $elt]
+		if {$new_elt != ""} {
+			PIE_add_elt "msg" $new_elt
+		}
+	}
+	return $msg
+}
 
+###########################################################################
+# Update a forward message to forward
+# 
+# raw_msg : initial forward msg
+#
+###########################################################################
+proc PIE_update_forward_msg { raw_msg } {
+	set msg ""
+	foreach elt [PIE_stream_elt_split raw_msg] {
+		set new_elt [PIE_update_forward_elt $elt]
+		if {$new_elt != ""} {
+			PIE_add_elt "msg" $new_elt
+		}
+	}
+	return $msg
+}
+
+###########################################################################
+# Update an offer element to forward
+# 
+# raw_msg : initial forward msg
+#
+###########################################################################
+proc PIE_update_offers_elt { elt } {
+	set nick [PIE_elt_splitstr $element $::PIE_msg_key_hb_nick]
+	set id [PIE_elt_splitstr $element $::PIE_msg_key_hb_id]
+	set distance [PIE_elt_splitstr $element $::PIE_msg_key_hb_dist]
+	if {[string compare $nick [ MainUser.user.nickname ]] != 0 && [string compare $id [ MainUser.car_id ]] } {
+		set new_distance [expr $distance + 1]
+	} else {
+		set new_distance 0
+	}
+	return [PIE_gen_hbeat_elt $id $nick $new_distance]
+}
+
+###########################################################################
+# Update a forward element to forward
+# 
+# raw_msg : initial forward msg
+#
+###########################################################################
+proc PIE_update_forward_elt { elt } {
+	set nick [PIE_elt_splitstr $element $::PIE_msg_key_hb_nick]
+	set id [PIE_elt_splitstr $element $::PIE_msg_key_hb_id]
+	set distance [PIE_elt_splitstr $element $::PIE_msg_key_hb_dist]
+	if { [storage.issubscribed $id $nick] } {
+		set new_distance 0
+	} else {
+		set new_distance [expr $distance + 1]
+	}
+	return [PIE_gen_hbeat_elt $id $nick $new_distance]
+}
 
 ###########################################################################
 ### Timers Procedures #####################################################
