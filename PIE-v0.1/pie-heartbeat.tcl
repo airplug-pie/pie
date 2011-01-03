@@ -6,6 +6,31 @@
 #    see license.txt
 
 ### MODULE HEARTBEAT ######################################################
+### List of Functions #####################################################
+##### Generation Functions
+# PIE_gen_list elt			Generate a list from the element
+# PIE_add_elt listname elt		Add the element to the variable listname
+# PIE_gen_hbeat_elt id nick dist	Generate an element from the given values
+# PIE_gen_elt_from_stream stream	Generate an element from the stream
+# PIE_gen_elt field			Generate an element from a field
+# PIE_gen_field mnemonique val		Generate a field from the Key - Value
+# PIE_add_field varelt mnemonique val	Add a field (key-value) to the variable varelt
+# PIE_gen_heartbeat			Generate a HeartBeat Message
+# PIE_get_offers {length}		Return a string of offers of the given length 
+# PIE_get_forward {length}		Return a string of forwarded streams of the given length 
+#
+##### Cut Functions
+# PIE_stream_elt_split chaine		Cut the string into elements
+# PIE_stream_field_split elt		Cut the element into fields
+# PIE_elt_splitstr elt mnemonique	Give the value for the given key in the element
+#
+##### Evaluation Functions
+# PIE_process_element {forward}		Eval the element as an offer (and a forwarded stream if true)
+# PIE_proc_offers 			Eval the offers
+# PIE_proc_forwards			Eval the Forward
+#
+#### See also Timers functions
+
 set PIE_field_eq "-"
 set PIE_field_delim ","
 set PIE_elt_delim "|"
@@ -13,6 +38,14 @@ set PIE_not_found -1
 
 set PIE_hbeat_delay 10000
 set PIE_hbeat_timer_active 0
+
+
+
+
+###########################################################################
+### Generation procedures #################################################
+###########################################################################
+
 ###########################################################################
 # Return a list of elements.
 #
@@ -113,6 +146,7 @@ proc PIE_gen_heartbeat {} {
 ###########################################################################
 proc PIE_get_offers { {length 60} } {
 	set offres ""
+	PIE_add_elt offres [PIE_gen_hbeat_elt [ MainUser.car_id ] [ MainUser.user.nickname ] 0]
 	foreach stream [available.show] {
 		set elt [PIE_gen_elt_from_stream $stream]
 		if {[expr [string length $offres] + [string length $elt]] < $length} {
@@ -142,6 +176,14 @@ proc PIE_get_forward { {length 60} } {
 	}
 	return $forward
 }
+
+
+
+
+
+###########################################################################
+#### Cut procedures #######################################################
+###########################################################################
 
 ###########################################################################
 # Cut a string into elements
@@ -181,23 +223,57 @@ proc PIE_elt_splitstr { element mnemonique } {
     return $::PIE_not_found
 }
 
+
+
+
+
+###########################################################################
+### Evaluation procedures #################################################
+###########################################################################
+
 ###########################################################################
 # Update a stream from the element
 #
 # element : element from the payload
+# forward : must be True(1) if the element is from a forward list
 ###########################################################################
-proc PIE_process_element { element } {
+proc PIE_process_element { element { forward 0 } } {
 	set nick [PIE_elt_splitstr $element $::PIE_msg_key_hb_nick]
 	set id [PIE_elt_splitstr $element $::PIE_msg_key_hb_id]
 	set distance [PIE_elt_splitstr $element $::PIE_msg_key_hb_dist]
-	
-	set stream [ storage.stream_search $car_id $nickname ]
-	if { $stream == "" } {
-		set stream [storage.new_stream $id $nick]
-		$stream.distance.set $distance
-	} else {
-		$stream.distance.set $distance
-		$stream.priority.inc
+	if {[string compare $nick [ MainUser.user.nickname ]] != 0 && [string compare $id [ MainUser.car_id ]] } {
+		set stream [ storage.stream_search $car_id $nickname ]
+		if { $stream == "" } {
+			set stream [storage.new_stream $id $nick]
+			$stream.distance.set $distance
+		} else {
+			$stream.distance.set $distance
+			$stream.priority.inc
+		}
+		if { ![storage.stream.isforwarded $stream] && $forwaded } {
+			storage.forwarded $stream
+		}
+	}
+}
+###########################################################################
+# Process Offers. Eval each element to update the stream
+#
+#
+############################################################################
+proc PIE_proc_offers { offres } {
+	foreach elt [PIE_stream_elt_split $offres] {
+		PIE_process_element $elt
+	}
+}
+
+###########################################################################
+# Process Forwards. Eval each element to update the stream
+# 
+#
+############################################################################
+proc PIE_proc_forwards { forwards } {
+	foreach elt [PIE_stream_elt_split $forwards] {
+		PIE_process_element $elt 1
 	}
 }
 
@@ -211,6 +287,15 @@ proc PIE_garbage_collect_stream {} {
 		$stream.priority.dec
 	}
 }
+
+
+
+
+
+
+###########################################################################
+### Timers Procedures #####################################################
+###########################################################################
 
 ###########################################################################
 # Launch HeartBeat Timer
