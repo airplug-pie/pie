@@ -13,7 +13,7 @@
 ###############################################################################
 
 #taille max de la fifo de reception des messages
-set rcv_fifo_max 4
+set rcv_fifo_max 200
 
 ### PROCEDURE DU MODULE #######################################################
 
