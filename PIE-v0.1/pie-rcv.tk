@@ -12,11 +12,13 @@
 
 ###############################################################################
 
-
+#taille max de la fifo de reception des messages
+set rcv_fifo_max 4
 
 ### PROCEDURE DU MODULE #######################################################
 
 ###############################################################################
+
 
 ##########################################################################
 # Nom		 : queue
@@ -67,9 +69,13 @@ namespace eval queue {
     
     proc present {queueVar var} {
     	upvar 1 $queueVar queue
+    	return [lsearch -exact $queue $var]
+    	
     	if { [lsearch -exact $queue $var] == 1 } {
+    		#puts [lsearch -exact $queue $var]
     		return 1
 		} else {
+			#puts [lsearch -exact $queue $var]
 			return 0
 		}
     }
@@ -85,6 +91,7 @@ namespace eval queue {
 # Retourne	 : Rien
 ##########################################################################
 proc APG_receive_what { what } {
+	global rcv_fifo
 	
 	set ::PIE_rcv_msg $what
 	puts "recu : $::PIE_rcv_msg"
@@ -105,10 +112,10 @@ proc APG_receive_what { what } {
    		set msg_forward [APG_msg_splitstr ::PIE_rcv_msg FWD]
    		
 		#gestion des offres
-		PIE_proc_offers $msg_offre
+		#PIE_proc_offers $msg_offre
 		
 		#gestion des forwards
-		PIE_proc_forwards $msg_forward
+		#PIE_proc_forwards $msg_forward
 	
 	}
 	
@@ -120,45 +127,72 @@ proc APG_receive_what { what } {
 		set msg_date [APG_msg_splitstr ::PIE_rcv_msg DATE]
 		set msg_content [APG_msg_splitstr ::PIE_rcv_msg MSG]
 		
-		#test si on est abonné
-		if {[storage.issubscribed $msg_from $msg_nick]} {
-			puts "issubscribed"			
+		
+		#test si deja traite via la fifo
+		if { [queue present rcv_fifo $msg_id] == -1 } {
+			puts "non traite"
+			queue put rcv_fifo $msg_id
 			
-			#affichage du msg
-			#gui_stream_recvmesg { [storage.new_stream $msg_from $msg_nick] $msg_content }
-			#TODO couple a storage et la gui
-			
-			if {$msg_tts > 1} {
-				set msg_tts [expr $msg_tts - 1]
-			} else {
-				set msg_ttl [expr $msg_ttl - 1]
-			}	
-			
-		} else {
-			#test si on a des voisins intéressé
-			if {[storage.isforwarded $msg_from $msg_nick]} {
-				puts "is forwarded"
-				set msg_tts [expr $msg_tts - 1]
-			} else {
-				set msg_ttl [expr $msg_ttl - 1]
+			#defile si trop long
+			if { [expr [queue size rcv_fifo] - [queue max rcv_fifo]] > 0 } {
+				queue get rcv_fifo"
 			}
-		}
-		
-		
-		
-		#on relay le msg
-		if {$msg_tts > 1} {
-			set msg [ PIE_gen_header $msg_ttl $msg_tts $msg_type ]
+			
+			
+			#test si on est abonné
+			if {[storage.issubscribed $msg_from $msg_nick]} {
+				puts "issubscribed"			
+			
+				#affichage du msg
+				#gui_stream_recvmesg { [storage.new_stream $msg_from $msg_nick] $msg_content }
+				#TODO couple a storage et la gui
+			
+				if {$msg_tts > 1} {
+					set msg_tts [expr $msg_tts - 1]
+				} else {
+					set msg_ttl [expr $msg_ttl - 1]
+				}	
+			
+			} else {
+				#test si on a des voisins intéressé
+				if {[storage.isforwarded $msg_from $msg_nick]} {
+					puts "is forwarded"
+					set msg_tts [expr $msg_tts - 1]
+				} else {
+					set msg_ttl [expr $msg_ttl - 1]
+				}
+			}
+			
+			
+			#on relay le msg
+			if {$msg_ttl > 0} {
+				set msg [ PIE_gen_header $msg_ttl $msg_tts $msg_type ]
 	
-  			APG_msg_addmsg msg $::PIE_msg_key_post_id $msg_id
-  			APG_msg_addmsg msg $::PIE_msg_key_post_date $msg_date
-  			APG_msg_addmsg msg $::PIE_msg_key_post_content $msg_content
+	  			APG_msg_addmsg msg $::PIE_msg_key_post_id $msg_id
+  				APG_msg_addmsg msg $::PIE_msg_key_post_date $msg_date
+  				APG_msg_addmsg msg $::PIE_msg_key_post_content $msg_content
   
-  			PIE_send_what $msg
-  			PIE_log_send_pie $msg	
+  				PIE_send_what $msg
+  				PIE_log_send_pie $msg	
+			} else {
+				return 0
+			}
+
+
+		} else {
+			#deja traite
+			return 0
 		}
+		
 	}
 
 	
 
 }
+
+
+
+
+#######################INITALISATION###################################################
+queue create rcv_fifo $rcv_fifo_max
+
