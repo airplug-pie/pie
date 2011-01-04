@@ -18,6 +18,65 @@
 
 ###############################################################################
 
+##########################################################################
+# Nom		 : queue
+# Role		 : gestion d'une fifo
+#
+# queue create nom max_size a b c d	: cree la queue nom de taille max_size avec les elements a b c d
+# queue empty nom					: vide la queue
+# queue put nom a b c				: ajoute a b et c a la queue nom
+# queue get nom						: defile un element de nom
+# queue max nom						: retourne la taille max definit a la creation de nom
+# queue present nom a				: test si "a" est present dans nom
+# queue size nom					: retourne le nombre d'element de nom
+#
+##########################################################################
+namespace eval queue {
+    namespace ensemble create -subcommands {create put get empty max present size} 
+    proc create {queueVar size args} {
+    	global queu_size
+        upvar 1 $queueVar queue
+        set queu_size($queueVar) $size
+       
+        set queue $args
+    }
+    proc put {queueVar args} {
+        upvar 1 $queueVar queue
+        lappend queue {*}$args
+    }
+    proc get {queueVar} {
+        upvar 1 $queueVar queue
+        set head [lindex $queue 0]
+        set queue [lrange $queue[set queue ""] 1 end]
+        return $head
+    }
+    proc empty {queueVar} {
+        upvar 1 $queueVar queue
+        expr {![llength $queue]}
+    }
+    
+    proc max {queueVar} {
+    	global queu_size
+        return $queu_size($queueVar)
+    }
+    
+    proc size {queueVar} {
+    	upvar 1 $queueVar queue
+    	return [llength $queue]
+    }
+    
+    proc present {queueVar var} {
+    	upvar 1 $queueVar queue
+    	if { [lsearch -exact $queue $var] == 1 } {
+    		return 1
+		} else {
+			return 0
+		}
+    }
+
+}
+
+
 
 ##########################################################################
 # Nom		 : APG_receive_what
