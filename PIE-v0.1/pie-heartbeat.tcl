@@ -246,7 +246,7 @@ proc PIE_process_element { element { forward 0 } } {
 	set id [PIE_elt_splitstr $element $::PIE_msg_key_hb_id]
 	set distance [PIE_elt_splitstr $element $::PIE_msg_key_hb_dist]
 	if {[string compare $nick [ MainUser.user.nickname ]] != 0 && [string compare $id [ MainUser.car_id ]] } {
-		set stream [ storage.stream_search $car_id $nickname ]
+		set stream [ storage.stream_search $id $nickname ]
 		if { $stream == "" } {
 			set stream [storage.new_stream $id $nick]
 			$stream.distance.set $distance
