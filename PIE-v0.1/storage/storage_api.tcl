@@ -223,7 +223,7 @@ proc storage.istream { stream } {
 proc storage.stream_search { car_id nickname } {
 	if { ![ storage.isinit ] } {
 		pdebug "Storage management : storage.stream_search : storage not initialised, Exit !!"
-		return
+		return ""
 	}
 	if { $car_id == "" || $nickname == "" } {
 		pdebug "Storage management : storage.stream_search : car_id or nickname argument is empty, Exit"
@@ -239,13 +239,14 @@ proc storage.stream_search { car_id nickname } {
 		}
 		pdebug "Storage management : storage.stream_search : stream with car_id eq. to $car_id and nickname eq. to $nickname NOT found"
 	}
+	return ""
 }
 
 ## storage.stream_list $s					: return a list of the lists where stream is available
 proc storage.stream_list { stream } {
 	if { ![ storage.isinit ] } {
 		pdebug "Storage management : storage.stream_list : storage not initialised, Exit !!"
-		return
+		return ""
 	}
 	set where [ list ]
 	# a stream in forgotten list shouldn't exist in any other list
@@ -374,6 +375,7 @@ proc storage.search_stream.bymember { member val } {
 	} else {
 		pdebug "Storage management : storage.search_stream.bymember : storage not initialised, Exit !!"
 	}
+	return ""
 }
 
 ## storage.search_stream.user.bymember $m $v : search the stream for which its user.member $m is eq. to $v
@@ -389,6 +391,7 @@ proc storage.search_stream.user.bymember { member val } {
 	} else {
 		pdebug "Storage management : storage.search_stream.user.bymember : storage not initialised, Exit !!"
 	}
+	return ""
 }
 
 # available list functions
@@ -413,7 +416,7 @@ proc storage.stream.isavailable { stream } {
 proc storage.isavailable { car_id nickname } {
 	if { ![ storage.isinit ] } {
 		pdebug "Storage management : storage.isavailable : storage not initialised, Exit !!"
-		return
+		return ""
 	}
 	pdebug "Storage management : storage.isavailable : look for stream eq. to ($car_id,$nickname)"
 	set stream [ storage.stream_search $car_id $nickname ]
@@ -424,6 +427,7 @@ proc storage.isavailable { car_id nickname } {
 		}
 	}
 	pdebug "Storage management : storage.isavailable : stream with car_id eq. to $car_id and nickname eq. to $nickname NOT found"
+	return ""
 }
 
 ## storage.available $s : add the stream $s in the available list if not already present and returnn true(1), false(0) else
@@ -486,7 +490,7 @@ proc storage.stream.isforwarded { stream } {
 proc storage.isforwarded { car_id nickname } {
 	if { ![ storage.isinit ] } {
 		pdebug "Storage management : storage.isforwarded : storage not initialised, Exit !!"
-		return
+		return ""
 	}
 	pdebug "Storage management : storage.isforwarded : look for stream eq. to ($car_id,$nickname)"
 	set stream [ storage.stream_search $car_id $nickname ]
@@ -497,6 +501,7 @@ proc storage.isforwarded { car_id nickname } {
 		}
 	}
 	pdebug "Storage management : storage.isforwarded : stream with car_id eq. to $car_id and nickname eq. to $nickname NOT found"
+	return ""
 }
 
 ## storage.forwarded $s	: add the stream $s in the forwarded list if not already present and returnn true(1), false(0) else
@@ -571,6 +576,7 @@ proc storage.issubscribed { car_id nickname } {
 		}
 	}
 	pdebug "Storage management : storage.issubscribed : stream with car_id eq. to $car_id and nickname eq. to $nickname NOT found"
+	return ""
 }
 
 ## storage.subscribed $s : add the stream $s in the subscribed list if not already present and returnn true(1), false(0) else
@@ -633,7 +639,7 @@ proc storage.stream.isforgotten { stream } {
 proc storage.isforgotten { car_id nickname } {	
 	if { ![ storage.isinit ] } {
 		pdebug "Storage management : storage.isforgotten : storage not initialised, Exit !!"
-		return
+		return ""
 	}
 	pdebug "Storage management : storage.isforgotten : look for stream eq. to ($car_id,$nickname)"
 	set stream [ storage.stream_search $car_id $nickname ]
@@ -644,6 +650,7 @@ proc storage.isforgotten { car_id nickname } {
 		}
 	}
 	pdebug "Storage management : storage.isforgotten : stream with car_id eq. to $car_id and nickname eq. to $nickname NOT found"
+	return ""
 }
 
 ## storage.forgotten $s	: add the stream $s in the forgotten list if not already present and returnn true(1), false(0) else
@@ -696,6 +703,7 @@ proc storage.time_available { stream } {
 	} else {
 		pdebug "Storage management : storage.time_available : storage not initialised, Exit !!"
 	}
+	return ""
 }
 
 # storage.time_available.get $s         : returns the time difference from which this stream is available
@@ -710,6 +718,7 @@ proc storage.time_available.get { stream } {
 	} else {
 		pdebug "Storage management : storage.time_available.get : storage not initialised, Exit !!"
 	}
+	return ""
 }
 
 # storage.time_available.set $s         : set the time from which this stream is available to now (dont't touch, set at stream creation)
@@ -724,6 +733,7 @@ proc storage.time_available.set { stream } {
 	} else {
 		pdebug "Storage management : storage.time_available.set : storage not initialised, Exit !!"
 	}
+	return ""
 }
 # storage.time_lastmsg $s               : returns the time of last mesg of the stream $s (hh:mm:ss)
 proc storage.time_lastmsg { stream } {
@@ -737,6 +747,7 @@ proc storage.time_lastmsg { stream } {
 	} else {
 		pdebug "Storage management : storage.time_lastmsg : storage not initialised, Exit !!"
 	}
+	return ""
 }
 
 # storage.time_lastmsg.set $s           : update to now the time of the last mesg of the stream $s (run for each new mesg) (hh:mm:ss)
@@ -751,6 +762,7 @@ proc storage.time_lastmsg.set { stream } {
 	} else {
 		pdebug "Storage management : storage.time_lastmsg.set : storage not initialised, Exit !!"
 	}
+	return ""
 }
 
 # storage.time_lastmsg.get $s           : get the time difference from which the stream $s has sent its last mesg
@@ -765,6 +777,7 @@ proc storage.time_lastmsg.get { stream } {
 	} else {
 		pdebug "Storage management : storage.time_lastmsg.get : storage not initialised, Exit !!"
 	}
+	return ""
 }
 
 # storage.time_lasthello $s             : returns the time of last hello of the stream $s (hh:mm:ss)
@@ -779,6 +792,7 @@ proc storage.time_lasthello { stream } {
 	} else {
 		pdebug "Storage management : storage.time_lasthello : storage not initialised, Exit !!"
 	}
+	return ""
 }
 
 # storage.time_lasthello.set $s         : update to now the time of the last mesg of the stream $s (run for each new hello) (hh:mm:ss)
@@ -793,6 +807,7 @@ proc storage.time_lasthello.set { stream } {
 	} else {
 		pdebug "Storage management : storage.time_lasthello.set : storage not initialised, Exit !!"
 	}
+	return ""
 }
 
 # storage.time_lasthello.get $s         : get the time difference from which the stream $s has sent its last hello (hh:mm:ss)
@@ -807,6 +822,7 @@ proc storage.time_lasthello.get { stream } {
 	} else {
 		pdebug "Storage management : storage.time_lasthello.get : storage not initialised, Exit !!"
 	}
+	return ""
 }
 
 # storage.nb_mesg $s                    : get the number of mesg sent by the stream $s
@@ -821,6 +837,7 @@ proc storage.nb_mesg { stream } {
 	} else {
 		pdebug "Storage management : storage.nb_mesg : storage not initialised, Exit !!"
 	}
+	return ""
 }
 
 # storage.newmesg $s 					: increment the number of mesg sent by the stream $s
@@ -835,6 +852,7 @@ proc storage.newmesg { stream } {
 	} else {
 		pdebug "Storage management : storage.newmesg : storage not initialised, Exit !!"
 	}
+	return ""
 }
 # -------------------------------------------------------------------------
 

@@ -114,7 +114,9 @@ proc gui_subscrib { stream } {
 	gui_apps_traces "gui_subscrib : you are now a subscriber of $stream"
 	;# - add to subscrided streams
 	gui_subscribed_add $stream
-	;# - return TODO_CALL_CORE
+	if { ![storage.stream.issubscribed $stream] } {
+		storage.subscribed $stream
+	}
 }
 
 proc gui_unsubscrib { stream } {
@@ -122,7 +124,9 @@ proc gui_unsubscrib { stream } {
 	gui_apps_traces "gui_unsubscrib : you are no longer subscribed to $stream"
 	;# - remove from subscrided streams
 	gui_subscribed_rem $stream
-	;# - return TODO_CALL_CORE
+	if { ![storage.stream.issubscribed $stream] } {
+		storage.unsubscribed $stream
+	}
 }
 
 proc gui_unforward { stream } {

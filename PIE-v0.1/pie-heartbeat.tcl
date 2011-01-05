@@ -42,6 +42,8 @@ set PIE_not_found -1
 
 set PIE_hbeat_delay 10000
 set PIE_hbeat_timer_active 0
+set PIE_garbage_delay 30000
+set PIE_garbage_timer_active 0
 
 
 
@@ -245,17 +247,19 @@ proc PIE_process_element { element { forward 0 } } {
 	set nick [PIE_elt_splitstr $element $::PIE_msg_key_hb_nick]
 	set id [PIE_elt_splitstr $element $::PIE_msg_key_hb_id]
 	set distance [PIE_elt_splitstr $element $::PIE_msg_key_hb_dist]
-	if {[string compare $nick [ MainUser.user.nickname ]] != 0 && [string compare $id [ MainUser.car_id ]] } {
-		set stream [ storage.stream_search $id $nickname ]
+	if {[string compare $nick [ MainUser.user.nickname ]] != 0 && [string compare $id [ MainUser.car_id ]] != 0 } {
+		set stream [ storage.stream_search $id $nick ]
 		if { $stream == "" } {
 			set stream [storage.new_stream $id $nick]
 			$stream.distance.set $distance
+			gui_newavailable $stream
 		} else {
 			$stream.distance.set $distance
 			$stream.priority.inc
 		}
-		if { ![storage.stream.isforwarded $stream] && $forwaded } {
+		if { ![storage.stream.isforwarded $stream] && $forward } {
 			storage.forwarded $stream
+			gui_newforward $stream
 		}
 	}
 }
@@ -266,7 +270,9 @@ proc PIE_process_element { element { forward 0 } } {
 ############################################################################
 proc PIE_proc_offers { offres } {
 	foreach elt [PIE_stream_elt_split $offres] {
-		PIE_process_element $elt
+		if { [string length $elt] > 3 } {
+			PIE_process_element $elt
+		}
 	}
 }
 
@@ -277,7 +283,9 @@ proc PIE_proc_offers { offres } {
 ############################################################################
 proc PIE_proc_forwards { forwards } {
 	foreach elt [PIE_stream_elt_split $forwards] {
-		PIE_process_element $elt 1
+		if { [string length $elt] > 3 } {
+			PIE_process_element $elt 1
+		}
 	}
 }
 

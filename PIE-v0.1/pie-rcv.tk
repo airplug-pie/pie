@@ -108,14 +108,14 @@ proc APG_receive_what { what } {
 	#######type hearbeat#######
 	if {$msg_type == "0"} {
    		puts "heart"
-   		set msg_offre [APG_msg_splitstr ::PIE_rcv_msg OFF]
-   		set msg_forward [APG_msg_splitstr ::PIE_rcv_msg FWD]
+   		set msg_offre [APG_msg_splitstr ::PIE_rcv_msg $::PIE_msg_key_hb_offers]
+   		set msg_forward [APG_msg_splitstr ::PIE_rcv_msg $::PIE_msg_key_hb_forward]
    		
 		#gestion des offres
-		#PIE_proc_offers $msg_offre
+		PIE_proc_offers $msg_offre
 		
 		#gestion des forwards
-		#PIE_proc_forwards $msg_forward
+		PIE_proc_forwards $msg_forward
 	
 	}
 	
@@ -140,7 +140,7 @@ proc APG_receive_what { what } {
 			
 			
 			#test si on est abonné
-			if {[storage.issubscribed $msg_from $msg_nick]} {
+			if {[storage.issubscribed $msg_from $msg_nick] != "" } {
 				puts "issubscribed"			
 			
 				#affichage du msg
@@ -155,7 +155,7 @@ proc APG_receive_what { what } {
 			
 			} else {
 				#test si on a des voisins intéressé
-				if {[storage.isforwarded $msg_from $msg_nick]} {
+				if {[storage.isforwarded $msg_from $msg_nick] != ""} {
 					puts "is forwarded"
 					set msg_tts [expr $msg_tts - 1]
 				} else {
