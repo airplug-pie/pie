@@ -133,7 +133,7 @@ bind DropSource <Motion>        [list gui_Motion        %W %X %Y %x %y]
 proc gui_pressOnStream {w} {
     variable active $w
 	gui_tab_pietraces "gui_pressOnStream : args $w, set green"
-    $w configure -background green
+    $w configure -background green		
 }
 
 # Generates a <<gui_StreamDrop>> event on the underlying widget
