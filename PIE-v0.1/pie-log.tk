@@ -19,5 +19,13 @@ proc PIE_log_send_hbeat { msg } {
 	gui_tab_outputs $msg $::PIE_gui_def_outputs_hello
 }
 
+proc PIE_log_send_info_req { msg } {
+	gui_tab_outputs $msg $::PIE_gui_def_outputs_info
+}
+
+proc PIE_log_send_info_rep { msg } {
+	gui_tab_outputs $msg $::PIE_gui_def_outputs_info
+}
+
 ###############################################################################
 

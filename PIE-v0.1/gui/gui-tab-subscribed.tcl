@@ -85,7 +85,7 @@ proc gui_subscribed_add { stream } {
 		# Display stream info
 		set gui(win_subscribed.$stream.tv)	[frame $gui(win_subscribed.$stream.f).tv]
 
-		# Two button to getinfos and unsubscirbed
+		# Two button to getinfos and unsubscribed
 		set gui(win_subscribed.$stream.bt)	[frame $gui(win_subscribed.$stream.f).bt]
 
 		# A frame to display text messages
@@ -102,7 +102,7 @@ proc gui_subscribed_add { stream } {
 
 		# Button definition
 		set gui(win_subscribed.$stream.bt1)	[button $gui(win_subscribed.$stream.bt).b1 -text "getinfos" -command "gui_stream_getinfos_snd $stream" ]
-		set gui(win_subscribed.$stream.bt2)	[button $gui(win_subscribed.$stream.bt).b2 -text "unsubscirbed" -command "gui_StreamDrop .window.frame.$stream $gui(main.availablef)"]
+		set gui(win_subscribed.$stream.bt2)	[button $gui(win_subscribed.$stream.bt).b2 -text "unsubscribed" -command "gui_StreamDrop .window.frame.$stream $gui(main.availablef)"]
 
 		# Nickname
 		set gui(win_subscribed.$stream.ft1)	[frame $gui(win_subscribed.$stream.tv).f1]

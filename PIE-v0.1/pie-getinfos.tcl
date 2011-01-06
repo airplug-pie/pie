@@ -28,6 +28,7 @@ proc pie_send_getinfos_request { stream } {
 		APG_msg_addmsg msg $::PIE_msg_key_infos_dest_nick $nickname
 		
 		PIE_send_what $msg
+		PIE_log_send_info_req $msg
 	}
 }
 
@@ -63,6 +64,7 @@ proc pie_send_getinfos_response { } {
 	APG_msg_addmsg msg $::PIE_msg_key_infos_desc $desc
 	APG_msg_addmsg msg $::PIE_msg_key_infos_dest $dest
 	PIE_send_what $msg
+	PIE_log_send_info_rep $msg
 }
 
 ###############################################################################
