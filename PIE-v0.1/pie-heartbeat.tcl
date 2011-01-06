@@ -256,6 +256,8 @@ proc PIE_process_element { element { forward 0 } } {
 		} else {
 			$stream.distance.set $distance
 			$stream.priority.inc
+			$stream.time_lasthello_up
+			gui_stream_update $stream
 		}
 		if { ![storage.stream.isforwarded $stream] && $forward } {
 			storage.forwarded $stream

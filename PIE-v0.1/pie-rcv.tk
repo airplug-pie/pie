@@ -145,9 +145,15 @@ proc APG_receive_what { what } {
 					set str [storage.stream_search $msg_from $msg_nick]
 				}
 				
+				#incrementation du nombre de msg recus
+				$str.nb_mesg_up
+				
+				#mise a jour de la date du dernier message
+				$str.time_lastmsg_up
+				
 				#affichage du msg
 				gui_stream_recvmesg $str $msg_content 
-			
+				
 				if {$msg_tts > 1} {
 					set msg_tts [expr $msg_tts - 1]
 				} else {

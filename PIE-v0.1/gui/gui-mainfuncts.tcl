@@ -254,6 +254,18 @@ proc gui_stream_getinfos_rcv { stream } {
 	}
 }
 
+proc gui_stream_update { stream } {
+	if { $stream != "" } {
+		foreach listname [storage.stream_list $stream] {
+			if { $listname == "subscribed" } {
+				gui_subscribed_update $stream
+			} elseif { $listname == "forwarded" } {
+				gui_tab_showforwarded_update $stream
+			}
+		}
+	}
+}
+
 # TODO NOT IMPLEMENTED
 #proc gui_forward_send { mesg } {}
 #proc gui_forward_recv { mesg } {}
