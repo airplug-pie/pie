@@ -63,6 +63,6 @@ for {set i 0} {$i < 25} {incr i 1} {
 gui_newforward stream4
 gui_newforward stream5
 
-gui_netmesg "\[normalement il y a ici les header du packet\] je suis un spammeur ... " input
-gui_netmesg "\[normalement il y a ici les header du packet\] Moi aussi ... " output
+gui_netmesg "\[normalement il y a ici les header du packet\] je suis un spammeur ... " 0
+gui_netmesg "\[normalement il y a ici les header du packet\] Moi aussi ... " 1
 

@@ -36,7 +36,7 @@ gui_stream_recvmesg { stream mesg }		Function to call when a stream send a messa
 
 gui_netmesg { mesg from }				Function to call when a mesg is send/received over the network
 										(mesg is the network mesg with all field (not just the payload),
-										from must be "input" or "output")
+										from must be 0 (input) or 1 (output))
 
 gui_stream_getinfos_rcv { stream }		Function call when a getinfo message is received 
 
