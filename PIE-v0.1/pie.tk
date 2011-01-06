@@ -69,10 +69,9 @@ source $PATH/pie-svg.tk
 source $PATH/pie-log.tk
 source $PATH/pie-vin.tcl
 #source $PATH/storage/storage_api.tcl
-source $PATH/pie-heartbeat.tcl
-
-
 # Start PIE GUI (storage is loaded too)
 source $PATH/gui/gui-init.tcl
+
+source $PATH/pie-heartbeat.tcl
 ###############################################################################
 
