@@ -46,6 +46,9 @@ set menudesc {
 		{checkbutton "Show &Outputs"    {} "Show all messages send and forwarded"	{Ctrl o} -accelerator "ctl-o" -variable gui(traces_out)  -command gui_menucmd_outputs}
 		{checkbutton "Show &Forwarded"  {} "Show forwarded streams"					{Ctrl f} -accelerator "ctl-f" -variable gui(traces_fw)   -command gui_menucmd_forward}
 	}
+	"&Get VIN" all getv 0 {
+		{checkbutton "Generato&r"           {} "Get a random VIN id"               	{Ctrl r} -accelerator "ctl-r" -variable gui(getvin) -command gui_menucmd_getvin}
+	}
 	"&Help" all help 0 {
 		{command "&Help"				{} "Help of PIE"							{Ctrl h} -accelerator "ctl-h" -command gui_menucmd_help}
 		{command "A&bout"				{} "About PIE" 								{Ctrl b} -accelerator "ctl-b" -command gui_menucmd_about}

@@ -19,6 +19,7 @@ exec wish8.5 "$0" "$@"
 set APP "PIE"
 set app "pie"
 
+
 # Recuperation de la valeur de la variable d'environnement APG_PATH,
 # qui indique le repertoire de la distribution AIRPLUG
 set APG_PATH [lindex [split [exec env | grep APG_PATH] "="] 1]
@@ -67,11 +68,8 @@ source $PATH/pie-rcv.tk
 source $PATH/pie-svg.tk
 source $PATH/pie-log.tk
 source $PATH/pie-vin.tcl
-source $PATH/storage/storage_api.tcl
+#source $PATH/storage/storage_api.tcl
 source $PATH/pie-heartbeat.tcl
-source $PATH/pie-vin.tcl
-
-
 
 
 # Start PIE GUI (storage is loaded too)

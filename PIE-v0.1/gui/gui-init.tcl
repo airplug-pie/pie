@@ -71,6 +71,9 @@ source $::PATH/storage/storage_api.tcl
 # Define procedures overriding the ones from LIBAPGTK
 source $::PATH/gui/gui-override.tcl
 
+# Allow to generate a VIN id
+source $::PATH/gui/gui-tab-getvin.tcl
+
 # ---------------- Gui initialisation ------------------
 
 # Statistics variable
