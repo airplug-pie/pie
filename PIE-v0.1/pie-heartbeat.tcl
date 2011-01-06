@@ -174,6 +174,14 @@ proc PIE_get_offers { {length 60} } {
 ###########################################################################
 proc PIE_get_forward { {length 60} } {
 	set forward ""
+	foreach stream [subscribed.show] {
+		set elt [PIE_gen_elt_from_stream $stream]
+		if {[expr [string length $forward] + [string length $elt]] < $length} {
+			PIE_add_elt forward $elt
+		} else {
+			break
+		}
+	}
 	foreach stream [forwarded.show] {
 		set elt [PIE_gen_elt_from_stream $stream]
 		if {[expr [string length $forward] + [string length $elt]] < $length} {
