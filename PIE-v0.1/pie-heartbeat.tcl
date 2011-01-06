@@ -138,7 +138,9 @@ proc PIE_add_field { varelement mnemonique val } {
 # return : message to send
 ###########################################################################
 proc PIE_gen_heartbeat {} {
-	set msg [PIE_gen_header 0 0 $::PIE_msg_type_heartbeat]
+	set ttl $::PIE_hb_TTL
+	set tts $::PIE_hb_TTS
+	set msg [PIE_gen_header $ttl $tts $::PIE_msg_type_heartbeat]
 	APG_msg_addmsg msg $::PIE_msg_key_hb_offers [PIE_get_offers 500]
 	APG_msg_addmsg msg $::PIE_msg_key_hb_forward [PIE_get_forward 500]
 	return $msg

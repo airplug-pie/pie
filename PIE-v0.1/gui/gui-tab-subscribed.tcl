@@ -252,7 +252,7 @@ proc gui_subscribed_newmesg { stream mesg } {
 	set gui($stream.firstname)			[$stream.user.firstname]
 	set gui($stream.email)				[$stream.user.email]
 	set gui($stream.phone_nb)			[$stream.user.phone_nb]
-	set gui($stream.sex)				[$stream.user.sex]
+	set gui($stream.age)				[$stream.user.age]
 	set gui($stream.sex)				[$stream.user.sex]
 	set gui($stream.dest)				[$stream.user.dest]
 	set gui($stream.desc)				[$stream.user.desc]

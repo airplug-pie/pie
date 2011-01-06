@@ -71,7 +71,7 @@ source $PATH/pie-vin.tcl
 #source $PATH/storage/storage_api.tcl
 # Start PIE GUI (storage is loaded too)
 source $PATH/gui/gui-init.tcl
-
+source $PATH/pie-getinfos.tcl
 source $PATH/pie-heartbeat.tcl
 ###############################################################################
 

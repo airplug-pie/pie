@@ -124,7 +124,7 @@ proc gui_unsubscrib { stream } {
 	gui_apps_traces "gui_unsubscrib : you are no longer subscribed to $stream"
 	;# - remove from subscrided streams
 	gui_subscribed_rem $stream
-	if { ![storage.stream.issubscribed $stream] } {
+	if { [storage.stream.issubscribed $stream] } {
 		storage.unsubscribed $stream
 	}
 }
@@ -238,6 +238,7 @@ proc gui_stream_getinfos_snd { stream } {
 	global gui
 	gui_stream_getinfos_snd_popup_ok $stream
 	gui_apps_traces "gui_stream_getinfos_snd : getinfo request is gone"
+	pie_send_getinfos_request $stream
 	;# TODO_CALL_CORE send getinfo packet
 }
 

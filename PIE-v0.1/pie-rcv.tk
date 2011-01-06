@@ -103,9 +103,10 @@ proc APG_receive_what { what } {
 	set msg_tts [APG_msg_splitstr ::PIE_rcv_msg TTS]
 	set msg_type [APG_msg_splitstr ::PIE_rcv_msg TYPE]
 	
+	gui_tab_inputs $what $msg_type
 	
 	#######type hearbeat#######
-	if {$msg_type == "0"} {
+	if {$msg_type == $::PIE_msg_type_heartbeat} {
    		set msg_offre [APG_msg_splitstr ::PIE_rcv_msg $::PIE_msg_key_hb_offers]
    		set msg_forward [APG_msg_splitstr ::PIE_rcv_msg $::PIE_msg_key_hb_forward]
    		
@@ -119,7 +120,7 @@ proc APG_receive_what { what } {
 	
 	
 	#######type message#######
-	if {$msg_type == "1"} {
+	if {$msg_type == $::PIE_msg_type_pie} {
 		set msg_id [APG_msg_splitstr ::PIE_rcv_msg ID]
 		set msg_date [APG_msg_splitstr ::PIE_rcv_msg DATE]
 		set msg_content [APG_msg_splitstr ::PIE_rcv_msg MSG]
@@ -163,7 +164,11 @@ proc APG_receive_what { what } {
 			} else {
 				#test si on a des voisins intéressé
 				if {[storage.isforwarded $msg_from $msg_nick] != ""} {
-					set msg_tts [expr $msg_tts - 1]
+					if {$msg_tts > 1} {
+						set msg_tts [expr $msg_tts - 1]
+					} else {
+						set msg_ttl [expr $msg_ttl - 1]
+					}	
 				} else {
 					set msg_ttl [expr $msg_ttl - 1]
 				}
@@ -191,9 +196,81 @@ proc APG_receive_what { what } {
 		}
 		
 	}
-
+	if {$msg_type == $::PIE_msg_type_infos_request} { 
+		set msg_id [APG_msg_splitstr ::PIE_rcv_msg ID]
+		set msg_date [APG_msg_splitstr ::PIE_rcv_msg DATE]
+		set infos_id [APG_msg_splitstr ::PIE_rcv_msg $::PIE_msg_key_infos_dest_carid]
+		set infos_nick [APG_msg_splitstr ::PIE_rcv_msg $::PIE_msg_key_infos_dest_nick]
+		
+		#test si deja traite via la fifo
+		if { [queue present rcv_fifo $msg_id] == -1 } {
+			queue put rcv_fifo $msg_id
+			if { [expr [queue size rcv_fifo] - [queue max rcv_fifo]] > 0 } {
+				queue get rcv_fifo"
+			}
+			if { ![pie_infos_process_request $infos_id $infos_nick] } {
+				set str [storage.isavailable $infos_id $infos_nick]
+				if { $str == "" } {
+					set msg_ttl [expr $msg_ttl - 1]
+				} else {
+					if {$msg_tts > 1} {
+						set msg_tts [expr $msg_tts - 1]
+					} else {
+						set msg_ttl [expr $msg_ttl - 1]
+					}	
+				}
+				if {$msg_ttl > 0} {
+				
+					set msg $::PIE_rcv_msg
+					APG_msg_replaceval msg $::PIE_msg_key_ttl $msg_ttl
+	 				APG_msg_replaceval msg $::PIE_msg_key_tts $msg_tts
+	  				PIE_send_what $msg
+	  				PIE_log_send_pie $msg	
+	  				
+				} else {
+					return 0
+				}
+			}
+		}
+	}
+	if {$msg_type == $::PIE_msg_type_infos_response} {
+		set msg_id [APG_msg_splitstr ::PIE_rcv_msg ID]
+		set msg_date [APG_msg_splitstr ::PIE_rcv_msg DATE]
+		
+		#test si deja traite via la fifo
+		if { [queue present rcv_fifo $msg_id] == -1 } {
+			queue put rcv_fifo $msg_id
+			if { [expr [queue size rcv_fifo] - [queue max rcv_fifo]] > 0 } {
+				queue get rcv_fifo"
+			}
+			
+			if {[storage.issubscribed $msg_from $msg_nick] != "" } {
+				set msg $::PIE_rcv_msg
+				pie_infos_process_response $msg [storage.issubscribed $msg_from $msg_nick]
+				
+			}
+			if {[storage.isforwarded $msg_from $msg_nick] != ""} {
+				if {$msg_tts > 1} {
+					set msg_tts [expr $msg_tts - 1]
+				} else {
+					set msg_ttl [expr $msg_ttl - 1]
+				}	
+			} else {
+				set msg_ttl [expr $msg_ttl - 1]
+			}
+			if {$msg_ttl > 0} {
+				set msg $::PIE_rcv_msg
+				APG_msg_replaceval msg $::PIE_msg_key_ttl $msg_ttl
+				APG_msg_replaceval msg $::PIE_msg_key_tts $msg_tts
+				PIE_send_what $msg
+				PIE_log_send_pie $msg		
+			} else {
+				return 0
+			}
+			
+		}
 	
-
+	}
 }
 
 

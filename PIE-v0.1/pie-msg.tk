@@ -10,9 +10,19 @@
 
 ### VARIABLES DU MODULE #######################################################
 
+# TTL & TTS
+set PIE_msg_TTL 32
+set PIE_msg_TTS 16
+set PIE_infos_TTL 32
+set PIE_infos_TTS 16
+set PIE_hb_TTL 0
+set PIE_hb_TTS 0
+
 # Types de messages
 set PIE_msg_type_heartbeat 0
 set PIE_msg_type_pie 1
+set PIE_msg_type_infos_request 2
+set PIE_msg_type_infos_response 3
 
 # Champs des headers
 set PIE_msg_key_from "FROM"
@@ -32,6 +42,18 @@ set PIE_msg_key_hb_nick "Nick"
 set PIE_msg_key_hb_dist "Dist"
 set PIE_msg_key_hb_offers "OFF"
 set PIE_msg_key_hb_forward "FWD"
+
+# Champs GETINFOS
+set PIE_msg_key_infos_dest_carid "toID"
+set PIE_msg_key_infos_dest_nick "toNick"
+set PIE_msg_key_infos_mail "Mail"
+set PIE_msg_key_infos_name "Name"
+set PIE_msg_key_infos_fname "Fname"
+set PIE_msg_key_infos_phone "Phone"
+set PIE_msg_key_infos_age "Age"
+set PIE_msg_key_infos_sexe "Sexe"
+set PIE_msg_key_infos_desc "Desc"
+set PIE_msg_key_infos_dest "Dest"
 
 ###############################################################################
 
