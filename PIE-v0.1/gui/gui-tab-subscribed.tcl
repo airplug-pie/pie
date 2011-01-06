@@ -310,4 +310,42 @@ proc gui_subscribed_update { stream } {
 	gui_subscribed_rem $stream
 	gui_subscribed_add $stream
 }
+
+proc gui_subscribed_simple_update { stream } {
+	global gui
+	if {$stream == ""} {
+		gui_exit_on_error "gui_subscribed_simple_update" "Bad call : empty args"
+		gui_apps_traces "gui_subscribed_simple_update : Bad call : empty args"
+		return 0 	;# false
+	}
+	if {[lsearch $gui(subscribed_registered) $stream] < 0} {
+		gui_exit_on_error "gui_subscribed_simple_update" "Bad call : you are not subscribed to $stream"
+		gui_apps_traces "gui_subscribed_simple_update : Bad call : you are not subscribed to $stream"
+		return 0
+	}
+	gui_apps_traces "gui_subscribed_simple : simple update from $stream, update panel"
+	# Update all field (first two is not usefull ...)
+	set gui($stream.user.nickname)		[$stream.user.nickname]
+	set gui($stream.car_id)				[$stream.car_id]
+	set gui($stream.time_available)		[$stream.time_available]
+	set gui($stream.time_lastmsg)		[$stream.time_lastmsg]
+	set gui($stream.time_lasthello)		[$stream.time_lasthello]
+	set gui($stream.nb_mesg)			[$stream.nb_mesg]
+	set gui($stream.fullname)			[$stream.user.fullname]
+	set gui($stream.firstname)			[$stream.user.firstname]
+	set gui($stream.email)				[$stream.user.email]
+	set gui($stream.phone_nb)			[$stream.user.phone_nb]
+	set gui($stream.age)				[$stream.user.age]
+	set gui($stream.sex)				[$stream.user.sex]
+	set gui($stream.dest)				[$stream.user.dest]
+	set gui($stream.desc)				[$stream.user.desc]
+
+	# open tab if need
+	if {$gui(subscribed) == 0} {
+		set gui(subscribed) 1
+		gui_menucmd_subscribed
+		gui_apps_traces "gui_subscribed_simple_update : open panel and focus on it"
+		$gui(win_subscribed.nb) raise $stream
+	}
+}
 # -----------------------------------------

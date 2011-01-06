@@ -103,10 +103,10 @@ proc APG_receive_what { what } {
 	set msg_tts [APG_msg_splitstr ::PIE_rcv_msg TTS]
 	set msg_type [APG_msg_splitstr ::PIE_rcv_msg TYPE]
 	
-	gui_tab_inputs $what $msg_type
 	
 	#######type hearbeat#######
 	if {$msg_type == $::PIE_msg_type_heartbeat} {
+		gui_tab_inputs $what "hello"
    		set msg_offre [APG_msg_splitstr ::PIE_rcv_msg $::PIE_msg_key_hb_offers]
    		set msg_forward [APG_msg_splitstr ::PIE_rcv_msg $::PIE_msg_key_hb_forward]
    		
@@ -121,6 +121,7 @@ proc APG_receive_what { what } {
 	
 	#######type message#######
 	if {$msg_type == $::PIE_msg_type_pie} {
+		gui_tab_inputs $what "mesg"
 		set msg_id [APG_msg_splitstr ::PIE_rcv_msg ID]
 		set msg_date [APG_msg_splitstr ::PIE_rcv_msg DATE]
 		set msg_content [APG_msg_splitstr ::PIE_rcv_msg MSG]
@@ -177,14 +178,11 @@ proc APG_receive_what { what } {
 			
 			#on relay le msg
 			if {$msg_ttl > 0} {
-				set msg [ PIE_gen_header $msg_ttl $msg_tts $msg_type ]
-	
-	  			APG_msg_addmsg msg $::PIE_msg_key_post_id $msg_id
-  				APG_msg_addmsg msg $::PIE_msg_key_post_date $msg_date
-  				APG_msg_addmsg msg $::PIE_msg_key_post_content $msg_content
-  
-  				PIE_send_what $msg
-  				PIE_log_send_pie $msg	
+				set msg $::PIE_rcv_msg
+				APG_msg_replaceval msg $::PIE_msg_key_ttl $msg_ttl
+				APG_msg_replaceval msg $::PIE_msg_key_tts $msg_tts
+				PIE_send_what $msg
+				PIE_log_send_pie $msg	
 			} else {
 				return 0
 			}
@@ -197,6 +195,7 @@ proc APG_receive_what { what } {
 		
 	}
 	if {$msg_type == $::PIE_msg_type_infos_request} { 
+		gui_tab_inputs $what "info"
 		set msg_id [APG_msg_splitstr ::PIE_rcv_msg ID]
 		set msg_date [APG_msg_splitstr ::PIE_rcv_msg DATE]
 		set infos_id [APG_msg_splitstr ::PIE_rcv_msg $::PIE_msg_key_infos_dest_carid]
@@ -234,6 +233,7 @@ proc APG_receive_what { what } {
 		}
 	}
 	if {$msg_type == $::PIE_msg_type_infos_response} {
+		gui_tab_inputs $what "info"
 		set msg_id [APG_msg_splitstr ::PIE_rcv_msg ID]
 		set msg_date [APG_msg_splitstr ::PIE_rcv_msg DATE]
 		
