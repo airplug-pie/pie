@@ -1,0 +1,58 @@
+#    pie
+#    a twitter-like app for airplug
+#    authors: Christophe Boudet, Julien Castaigne, Jonathan Roudire,
+#             Christophe Roquette, JŽrŽmy Subtil
+#    license type: free of charge license for academic and research purpose
+#    see license.txt
+
+---------------------
+SERVER PIE
+---------------------
+
+
+
+
+
+- DESCRIPTION
+
+Ceci est un serveur centralise accessible en TCP (port 8000 par dŽfaut) pour communiquer entre Airplug et Internet (Twitter dans le cas prŽsent)
+
+
+
+- INSTALLATION :
+
+packages recquires : 
+Perl, MySQL
+
+
+installation modules Perl :
+> cpan
+> install *PACKAGE*
+
+DBI (connection MySQL)
+Net::Server (Serveur utilisant libevent)
+Digest::HMAC_MD5 (HMAC en MD5)
+Net::Twitter (interface)
+Scalar::Util
+
+
+CrŽation des tables MySQL
+ExŽcuter le code SQL de table.sql
+Les mots de passe sont en clair, et le login doit etre unique.
+
+Twitter :
+http://dev.twitter.com/ -> register an app
+type : client
+default access type : Read & Write
+
+Modifier dans serv.pl
+ consumer_key  
+ consumer_secret
+ access_token
+ access_token_secret
+par celles fournit par la nouvelle application
+
+
+- UTILISATION :
+
+eai_send "salut" 1
