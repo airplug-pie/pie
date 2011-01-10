@@ -1,0 +1,57 @@
+#!/usr/bin/tclsh
+
+#    pie
+#    a twitter-like app for airplug
+#    authors: Christophe Boudet, Julien Castaigne, Jonathan Roudière,
+#             Christophe Roquette, Jérémy Subtil
+#    license type: free of charge license for academic and research purpose
+#    see license.txt
+
+### MODULE MESSAGE ############################################################
+
+
+### VARIABLES DU MODULE #######################################################
+package require md5
+
+
+#parametres user et serveur
+set secret "test"
+set user "boudetch"
+set host "localhost"
+set port "8000"
+
+
+### PROCEDURE DU MODULE #######################################################
+
+###############################################################################
+
+
+##########################################################################
+# Nom		 : eai_send
+# Role		 : envoi de messages au serveur centralise
+#
+# Parametres : message, id
+# Exemples :	eai_send "salut" 1
+#
+##########################################################################
+
+
+proc eai_send {msg id} {
+	global secret
+	global host
+	global port
+	global user
+	
+	#clef
+	set hmac [ ::md5::hmac -hex -key $secret $msg]
+	puts $hmac
+	
+	#open socket
+	set sid [socket $host $port]
+	fconfigure $sid -buffering line
+	fileevent $sid readable "readdata $sid"
+	
+	puts $sid "user:$user;key:$hmac;id:$id;msg:$msg"
+}
+
+
