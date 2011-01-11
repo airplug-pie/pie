@@ -2,8 +2,8 @@
 
 #    pie
 #    a twitter-like app for airplug
-#    authors: Christophe Boudet, Julien Castaigne, Jonathan Roudire,
-#             Christophe Roquette, JŽrŽmy Subtil
+#    authors: Christophe Boudet, Julien Castaigne, Jonathan Roudiere,
+#             Christophe Roquette, Jérémy Subtil
 #    license type: free of charge license for academic and research purpose
 #    see license.txt
 
@@ -16,7 +16,7 @@ use Net::Twitter;
 use Scalar::Util 'blessed';
 
 
-#information de connection la base de donnŽe (server type myqsl, sur localhost avec user pie , password pie et database pie
+#information de connection la base de donnée (server type myqsl, sur localhost avec user pie , password pie et database pie
 $dbh = DBI->connect('DBI:mysql:pie;host=localhost', 'pie', 'pie' ) || die "Could not connect to database: $DBI::errstr";
 
 
