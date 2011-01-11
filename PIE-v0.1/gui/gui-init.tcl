@@ -86,7 +86,7 @@ set gui(nbget_recv)			0	;# Number of getinfos messages received
 set gui(nblocalmesg_snd)	0	;# Number of local (from user) messages
 
 # Default help
-set gui(helpfile)			"share/pie_help.txt"
+set gui(helpfile)			"$::PATH/share/pie_help.txt"
 
 # set default configdir path (~/.pie)
 if { [info vars PIE_configdir] == "" } {

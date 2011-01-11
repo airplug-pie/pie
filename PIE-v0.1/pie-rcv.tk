@@ -133,7 +133,7 @@ proc APG_receive_what { what } {
 			
 			#defile si trop long
 			if { [expr [queue size rcv_fifo] - [queue max rcv_fifo]] > 0 } {
-				queue get rcv_fifo"
+				queue get rcv_fifo
 			}
 			
 				
@@ -205,7 +205,7 @@ proc APG_receive_what { what } {
 		if { [queue present rcv_fifo $msg_id] == -1 } {
 			queue put rcv_fifo $msg_id
 			if { [expr [queue size rcv_fifo] - [queue max rcv_fifo]] > 0 } {
-				queue get rcv_fifo"
+				queue get rcv_fifo
 			}
 			if { ![pie_infos_process_request $infos_id $infos_nick] } {
 				set str [storage.isavailable $infos_id $infos_nick]
@@ -241,7 +241,7 @@ proc APG_receive_what { what } {
 		if { [queue present rcv_fifo $msg_id] == -1 } {
 			queue put rcv_fifo $msg_id
 			if { [expr [queue size rcv_fifo] - [queue max rcv_fifo]] > 0 } {
-				queue get rcv_fifo"
+				queue get rcv_fifo
 			}
 			
 			if {[storage.issubscribed $msg_from $msg_nick] != "" } {
