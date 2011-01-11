@@ -15,6 +15,9 @@ proc APG_int_btstart { } {
 
     # Le bouton Envoyer de la zone d'emission devient "actif"
     $::gui(send_button) configure -state active
+
+    # Abonnement aux applications 
+    APG_begin_air "PIE"
     
     # Envoi des messages HeartBeat
     PIE_start_hbeat

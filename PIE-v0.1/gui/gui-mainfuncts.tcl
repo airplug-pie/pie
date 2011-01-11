@@ -134,7 +134,8 @@ proc gui_unforward { stream } {
 	gui_apps_traces "gui_unforward : you make to $stream is unforwarded from now"
 	;# - remove from forwoard
 	gui_delforward $stream
-	;# - return TODO_CALL_CORE
+	;# - return TODO_CALL_CORE ==> DO IT HERE
+	storage.unforwarded $stream
 	return 
 }
 

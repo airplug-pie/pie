@@ -1,0 +1,15 @@
+<map width="1000" height="1000">
+	<node id="1" >
+		<app name="PIE" exe="./pie.tk --mode=emu --ident=1" />
+		<move type="gpsfile" path="../data/log-royallieu.gps" endmode="loop" />
+	</node>
+	<node id="2" >
+		<app name="PIE" exe="./pie.tk --mode=emu --ident=2"/>
+		<move type="gpsfile" path="../data/log-royallieu.gps" endmode="loop" delay="10" />
+	</node>
+	<node id="3" >
+		<app name="PIE" exe="./pie.tk --mode=emu --ident=3" />
+		<move type="gpsfile" path="../data/log-royallieu.gps" endmode="loop" delay="20" />
+	</node>
+</map>
+
